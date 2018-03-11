@@ -1,7 +1,10 @@
+package ADHomework.ADEntities;
+
+import ADHomework.ADUtils.ADConstants;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.function.Function;
 
 /**
  * Created by Kazys on 2018-03-10.

@@ -1,4 +1,7 @@
-import java.math.BigDecimal;
+package ADHomework.ADEntities;
+
+import ADHomework.ADUtils.ADConstants;
+
 import java.text.ParseException;
 import java.util.Date;
 
