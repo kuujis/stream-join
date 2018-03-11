@@ -11,10 +11,10 @@ import java.util.Date;
  */
 public class ADClick {
 
-    private final long id;
+    private final Long id;
     private final Date logTime;
-    private final int campaignId;
-    private final long interactionId;
+    private final Integer campaignId;
+    private final Long interactionId;
 
     public ADClick(String line) throws ParseException {
         String[] chunks = line.split(",");
@@ -25,7 +25,7 @@ public class ADClick {
         this.logTime = ADConstants.df.parse(chunks[1]);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -33,11 +33,11 @@ public class ADClick {
         return logTime;
     }
 
-    public int getCampaignId() {
+    public Integer getCampaignId() {
         return campaignId;
     }
 
-    public long getInteractionId() {
+    public Long getInteractionId() {
         return interactionId;
     }
 

@@ -11,20 +11,20 @@ import java.util.Date;
  */
 public class ADView {
 
-    private final BigDecimal id;
+    private final Long id;
     private final Date logTime;
-    private final long campaignId;
+    private final Integer campaignId;
 
     public ADView(String line) throws ParseException {
         //shamefurr copy from https://stackoverflow.com/questions/1757065/java-splitting-a-comma-separated-string-but-ignoring-commas-in-quotes :)
         String[] chunks = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
         this.logTime = ADConstants.df.parse(chunks[1]);
-        this.id = new BigDecimal(chunks[0].replaceAll("\"", "").replace(",", "."));
-        this.campaignId = Long.parseLong(chunks[2]);
+        this.id = new BigDecimal(chunks[0].replaceAll("\"", "").replace(",", ".")).longValue();
+        this.campaignId = Integer.parseInt(chunks[2]);
     }
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
@@ -32,7 +32,7 @@ public class ADView {
         return logTime;
     }
 
-    public long getCampaignId() {
+    public Integer getCampaignId() {
         return campaignId;
     }
 }
