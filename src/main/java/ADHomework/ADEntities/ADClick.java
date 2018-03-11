@@ -6,9 +6,16 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
- * Created by Kazys on 2018-03-10.
+ * Could be an extension of ADVIewableView, but then need to manipulate constructor parameters,
+ * leads to more memory usage. Probably :)
  */
 public class ADClick {
+
+    private final long id;
+    private final Date logTime;
+    private final int campaignId;
+    private final long interactionId;
+
     public ADClick(String line) throws ParseException {
         String[] chunks = line.split(",");
 
@@ -33,16 +40,5 @@ public class ADClick {
     public long getInteractionId() {
         return interactionId;
     }
-
-    private long id;
-    private Date logTime;
-    private int campaignId;
-    private long interactionId;
-    /**Click:
-    *Id
-    * Logtime
-    * Campaign Id
-    * Interaction Id (View.Id)*/
-
 
 }

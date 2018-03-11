@@ -1,11 +1,13 @@
 package ADHomework.ADEntities;
 
 import ADHomework.ADUtils.ADConstants;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -18,21 +20,24 @@ public class ADViewTest {
     private String badIdLine = "\"bad,number with comma\",2018-02-22 00:00:00.127,1221633";
     private String properLine = "\"5,76777668144944E+018\",2018-02-22 00:00:00.127,1221633";
 
-    @Test (expected = ParseException.class)
-    public void testFirstLineParsingReturnsThrowsException() throws ParseException {
-        ADView adView = new ADView(line0);
-    }
+    @Test // (expected = ParseException.class)
+    public void testExceptionsThrownOnBadLines() throws ParseException {
 
-    @Test (expected = NumberFormatException.class)
-    public void testNumberFormatExceptionThrownWhenBadId() throws ParseException {
-        ADView adView = new ADView(badIdLine);
+        assertThrows(ParseException.class,() -> {
+            ADView adView = new ADView(line0);
+        });
+
+        assertThrows(NumberFormatException.class,() -> {
+            ADView adView = new ADView(badIdLine);
+        });
+
     }
 
     @Test
     public void testObjectCreatedWithProperValues() throws ParseException {
         ADView adView = new ADView(properLine);
-        Assert.assertEquals(1221633, adView.getCampaignId());
-        Assert.assertEquals(new BigDecimal("5.76777668144944E+018"), adView.getId());
-        Assert.assertEquals(ADConstants.df.parse("2018-02-22 00:00:00.127"),adView.getLogTime());
+        assertEquals(1221633, adView.getCampaignId());
+        assertEquals(new BigDecimal("5.76777668144944E+018"), adView.getId());
+        assertEquals(ADConstants.df.parse("2018-02-22 00:00:00.127"),adView.getLogTime());
     }
 }
