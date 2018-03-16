@@ -9,10 +9,8 @@ import java.util.Date;
 /**
  * Created by Kazys on 2018-03-10.
  */
-public class ADView {
+public class ADView extends ADIdLogTimed{
 
-    private final Long id;
-    private final Date logTime;
     private final Integer campaignId;
 
     public ADView(String line) throws ParseException {
@@ -22,14 +20,6 @@ public class ADView {
         this.logTime = ADConstants.df.parse(chunks[1]);
         this.id = new BigDecimal(chunks[0].replaceAll("\"", "").replace(",", ".")).longValue();
         this.campaignId = Integer.parseInt(chunks[2]);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Date getLogTime() {
-        return logTime;
     }
 
     public Integer getCampaignId() {

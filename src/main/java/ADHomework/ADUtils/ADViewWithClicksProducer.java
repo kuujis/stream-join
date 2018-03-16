@@ -4,8 +4,6 @@ import ADHomework.ADEntities.ADView;
 import ADHomework.ADEntities.ADViewWithClick;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.BufferedReader;
 import java.io.FileWriter;
@@ -14,7 +12,6 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class ADViewWithClicksProducer {
@@ -40,7 +37,7 @@ public class ADViewWithClicksProducer {
                 //TODO: need to filter all garbage then act on good adViews only
                 .flatMap(adView -> includeClicks(clicksPath, adView))
                 .filter(adViewWithClick -> adViewWithClick.getClickId() != null)
-                .forEach(writeToCsv(beanToCsv));
+                .forEach(ADUtils.writeToCsv(beanToCsv));
     }
 
     private Stream<ADViewWithClick> includeClicks(Path clicksPath, ADView adView) {
@@ -59,16 +56,4 @@ public class ADViewWithClicksProducer {
         return null;
     }
 
-    private Consumer<ADViewWithClick> writeToCsv(StatefulBeanToCsv beanToCsv) {
-        return o -> {
-            try {
-                beanToCsv.write(o);
-            } catch (CsvDataTypeMismatchException dtm) {
-                System.out.printf("Data type mismatch for %s \n", o.toString());
-            } catch (CsvRequiredFieldEmptyException rfe) {
-                System.out.printf("Required field missing for %s \n", o.toString());
-            }
-            ;
-        };
-    }
 }

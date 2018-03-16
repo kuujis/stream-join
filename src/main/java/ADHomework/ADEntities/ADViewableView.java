@@ -5,11 +5,9 @@ import ADHomework.ADUtils.ADConstants;
 import java.text.ParseException;
 import java.util.Date;
 
-public class ADViewableView {
+public class ADViewableView extends ADIdLogTimed{
 
-    private final Date logTime;
     private final long interactionId;
-    private final long id;
 
     public ADViewableView(String line) throws ParseException {
         String[] chunks = line.split(",");
@@ -18,15 +16,7 @@ public class ADViewableView {
         this.logTime = ADConstants.df.parse(chunks[1]);
     }
 
-    public Date getLogTime() {
-        return logTime;
-    }
-
-    public long getInteractionId() {
+    public Long getInteractionId() {
         return interactionId;
-    }
-
-    public long getId() {
-        return id;
     }
 }

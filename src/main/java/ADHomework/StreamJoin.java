@@ -1,8 +1,8 @@
 package ADHomework;
 
 import ADHomework.ADUtils.ADUtils;
-import ADHomework.ADUtils.ADVVwithCmpgnProducer;
 import ADHomework.ADUtils.ADViewWithClicksProducer;
+import ADHomework.ADUtils.ADViewableViewsProducer;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
@@ -18,8 +18,8 @@ public class StreamJoin {
         ADUtils.checkFiles(args);
 
         try {
-            new ADViewWithClicksProducer().generateViewsWithClicks(args);
-            //new ADVVwithCmpgnProducer().generateVVwithCmpgn(args);
+            //new ADViewWithClicksProducer().generateViewsWithClicks(args);
+            new ADViewableViewsProducer().generateViewableViews(args);
         } catch (IOException e) {
             e.printStackTrace();
         }

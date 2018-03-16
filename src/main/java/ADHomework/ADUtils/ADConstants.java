@@ -9,5 +9,6 @@ import java.text.SimpleDateFormat;
 public class ADConstants {
     public static String separator = ",";
     public static DateFormat df = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss.SSS");
+    public static Integer timeWindow = 100000;//in miliseconds
 
 }

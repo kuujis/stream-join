@@ -9,10 +9,8 @@ import java.util.Date;
  * Could be an extension of ADVIewableView, but then need to manipulate constructor parameters,
  * leads to more memory usage. Probably :)
  */
-public class ADClick {
+public class ADClick extends ADIdLogTimed{
 
-    private final Long id;
-    private final Date logTime;
     private final Integer campaignId;
     private final Long interactionId;
 
@@ -23,14 +21,6 @@ public class ADClick {
         this.campaignId = Integer.parseInt(chunks[2]);
         this.interactionId = Long.parseLong(chunks[3]);
         this.logTime = ADConstants.df.parse(chunks[1]);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Date getLogTime() {
-        return logTime;
     }
 
     public Integer getCampaignId() {

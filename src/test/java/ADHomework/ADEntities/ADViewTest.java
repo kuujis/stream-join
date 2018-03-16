@@ -36,7 +36,7 @@ public class ADViewTest {
     @Test
     public void testObjectCreatedWithProperValues() throws ParseException {
         ADView adView = new ADView(properLine);
-        assertEquals(new Integer(1221633), adView.getCampaignId());
+        assertEquals(1221633, adView.getCampaignId().intValue());
         assertEquals(new BigDecimal("5.76777668144944E+018").longValue(), adView.getId().longValue());
         assertEquals(ADConstants.df.parse("2018-02-22 00:00:00.127"),adView.getLogTime());
     }
