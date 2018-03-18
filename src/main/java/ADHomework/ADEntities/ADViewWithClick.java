@@ -17,4 +17,9 @@ public class ADViewWithClick extends ADIdLogTimed{
         return clickId;
     }
 
+    @Override
+    public String toString(){
+        return super.toString() + " clickId: " + this.clickId.toString();
+    }
+
 }

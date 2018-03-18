@@ -31,4 +31,8 @@ public class ADClick extends ADIdLogTimed{
         return interactionId;
     }
 
+    @Override
+    public String toString(){
+        return super.toString() + " cmpg: " + this.campaignId.toString() + " intId: " + this.getInteractionId().toString();
+    }
 }

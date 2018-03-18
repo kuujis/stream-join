@@ -12,6 +12,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class ADViewWithClicksProducer {
@@ -37,7 +38,7 @@ public class ADViewWithClicksProducer {
                 //TODO: need to filter all garbage then act on good adViews only
                 .flatMap(adView -> includeClicks(clicksPath, adView))
                 .filter(adViewWithClick -> adViewWithClick.getClickId() != null)
-                .forEach(ADUtils.writeToCsv(beanToCsv));
+                .forEach((Consumer<? super ADViewWithClick>) ADUtils.writeToCsv(beanToCsv));
     }
 
     private Stream<ADViewWithClick> includeClicks(Path clicksPath, ADView adView) {

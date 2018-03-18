@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 public class ADConstants {
     public static String separator = ",";
     public static DateFormat df = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss.SSS");
-    public static Integer timeWindow = 100000;//in miliseconds
+    public static Integer timeWindow = 50000;//in miliseconds
+    public static Integer bufferSize = 100; //defines how much ADViewableViews should be put into cache
 
 }

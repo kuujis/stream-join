@@ -25,4 +25,10 @@ public class ADView extends ADIdLogTimed{
     public Integer getCampaignId() {
         return campaignId;
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + " cmpg: " + this.campaignId.toString();
+    }
+
 }

@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * Created by Kazys on 2018-03-10.
@@ -62,7 +63,7 @@ public class ADUtils {
     }
 
 
-    public synchronized static Consumer<ADIdLogTimed> writeToCsv(StatefulBeanToCsv beanToCsv) {
+    public synchronized static Consumer<? super Stream<ADIdLogTimed>> writeToCsv(StatefulBeanToCsv beanToCsv) {
         return o -> {
             try {
                 beanToCsv.write(o);
@@ -75,9 +76,9 @@ public class ADUtils {
         };
     }
 
-    public synchronized static boolean logTimeInRange(Date timeToCheck, Date rangePoint, long range) {
-        boolean ret = timeToCheck.getTime() >= rangePoint.getTime() - range &&
-                timeToCheck.getTime() <= rangePoint.getTime();
+    public synchronized static boolean logTimeInRange(Date timeToCheck, Date rangeEndPoint, long range) {
+        boolean ret = timeToCheck.getTime() >= rangeEndPoint.getTime() - range &&
+                timeToCheck.getTime() <= rangeEndPoint.getTime();
         return ret;
     }
 }

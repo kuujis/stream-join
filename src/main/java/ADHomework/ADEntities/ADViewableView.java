@@ -19,4 +19,10 @@ public class ADViewableView extends ADIdLogTimed{
     public Long getInteractionId() {
         return interactionId;
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + " intId: " + this.getInteractionId().toString();
+    }
+
 }

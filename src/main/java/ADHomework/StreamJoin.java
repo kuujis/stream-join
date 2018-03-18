@@ -1,5 +1,6 @@
 package ADHomework;
 
+import ADHomework.ADEntities.ADViewableView;
 import ADHomework.ADUtils.ADUtils;
 import ADHomework.ADUtils.ADViewWithClicksProducer;
 import ADHomework.ADUtils.ADViewableViewsProducer;
@@ -7,6 +8,8 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Kazys on 2018-03-10.
@@ -19,7 +22,8 @@ public class StreamJoin {
 
         try {
             //new ADViewWithClicksProducer().generateViewsWithClicks(args);
-            new ADViewableViewsProducer().generateViewableViews(args);
+            ADViewableViewsProducer prod = new ADViewableViewsProducer(args);
+            prod.generateViewableViews();
         } catch (IOException e) {
             e.printStackTrace();
         }
