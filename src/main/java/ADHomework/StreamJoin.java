@@ -21,7 +21,9 @@ public class StreamJoin {
         ADUtils.checkFiles(args);
 
         try {
-            //new ADViewWithClicksProducer().generateViewsWithClicks(args);
+//            ADViewWithClicksProducer clicks = new ADViewWithClicksProducer();
+//            clicks.generateViewsWithClicks(args);
+
             ADViewableViewsProducer prod = new ADViewableViewsProducer(args);
             prod.generateViewableViews();
         } catch (IOException e) {

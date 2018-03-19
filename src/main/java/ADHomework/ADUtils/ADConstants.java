@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
  */
 public class ADConstants {
     public static String separator = ",";
-    public static DateFormat df = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss.SSS");
-    public static Integer timeWindow = 50000;//in miliseconds
-    public static Integer bufferSize = 100; //defines how much ADViewableViews should be put into cache
+    public static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    public static Integer timeWindow = 200000;//in miliseconds, max difference found by hand - ~160000
+    public static Integer bufferSize = 2; //defines how much ADViewableViews should be put into cache
 
 }

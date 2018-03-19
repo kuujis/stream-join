@@ -19,8 +19,8 @@ class ADViewWithClickTest {
 
         ADViewWithClick adViewWithClick = new ADViewWithClick(id, logTime, clickId);
 
-        assertEquals(id, adViewWithClick.getId());
-        assertEquals(clickId, adViewWithClick.getClickId());
+        assertTrue(id == adViewWithClick.getId());
+        assertTrue(clickId  == adViewWithClick.getClickId());
         assertEquals(logTime, adViewWithClick.getLogTime());
     }
 

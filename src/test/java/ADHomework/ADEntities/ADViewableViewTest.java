@@ -30,8 +30,8 @@ class ADViewableViewTest {
     @Test
     public void testProperLineIsParsed() throws ParseException {
         ADViewableView adViewableView = new ADViewableView(properLine);
-        assertEquals((Long)151925403000149618l, adViewableView.getId());
+        assertEquals(151925403000149618l, adViewableView.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:00:03.863"), adViewableView.getLogTime());
-        assertEquals((Long)2975826529651648264l, adViewableView.getInteractionId());
+        assertEquals(2975826529651648264l, adViewableView.getInteractionId());
     }
 }

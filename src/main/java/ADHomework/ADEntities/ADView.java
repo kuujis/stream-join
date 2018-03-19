@@ -4,14 +4,13 @@ import ADHomework.ADUtils.ADConstants;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.Date;
 
 /**
  * Created by Kazys on 2018-03-10.
  */
 public class ADView extends ADIdLogTimed{
 
-    private final Integer campaignId;
+    private final int campaignId;
 
     public ADView(String line) throws ParseException {
         //shamefurr copy from https://stackoverflow.com/questions/1757065/java-splitting-a-comma-separated-string-but-ignoring-commas-in-quotes :)
@@ -28,7 +27,7 @@ public class ADView extends ADIdLogTimed{
 
     @Override
     public String toString(){
-        return super.toString() + " cmpg: " + this.campaignId.toString();
+        return super.toString() + " cmpg: " + this.campaignId;
     }
 
 }

@@ -3,7 +3,6 @@ package ADHomework.ADEntities;
 import ADHomework.ADUtils.ADConstants;
 
 import java.text.ParseException;
-import java.util.Date;
 
 public class ADViewableView extends ADIdLogTimed{
 
@@ -16,13 +15,13 @@ public class ADViewableView extends ADIdLogTimed{
         this.logTime = ADConstants.df.parse(chunks[1]);
     }
 
-    public Long getInteractionId() {
+    public long getInteractionId() {
         return interactionId;
     }
 
     @Override
     public String toString(){
-        return super.toString() + " intId: " + this.getInteractionId().toString();
+        return super.toString() + " intId: " + this.interactionId;
     }
 
 }

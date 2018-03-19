@@ -30,7 +30,6 @@ class ADViewableViewsProducerTest {
         File clicks = new File(this.getClass().getResource("/ClicksS.csv").getFile());
         File vviews = new File(this.getClass().getResource("/ViewableViewsS.csv").getFile());
         File fviews = new File(this.getClass().getResource("/FilteredViews.csv").getFile());
-        //assertTrue(file.exists());
 
         String[] args = new String[]{views.getAbsolutePath(), clicks.getAbsolutePath(), vviews.getAbsolutePath(), fviews.getAbsolutePath()};
 

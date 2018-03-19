@@ -3,7 +3,6 @@ package ADHomework.ADEntities;
 import ADHomework.ADUtils.ADConstants;
 
 import java.text.ParseException;
-import java.util.Date;
 
 /**
  * Could be an extension of ADVIewableView, but then need to manipulate constructor parameters,
@@ -11,8 +10,8 @@ import java.util.Date;
  */
 public class ADClick extends ADIdLogTimed{
 
-    private final Integer campaignId;
-    private final Long interactionId;
+    private final int campaignId;
+    private final long interactionId;
 
     public ADClick(String line) throws ParseException {
         String[] chunks = line.split(",");
@@ -27,12 +26,12 @@ public class ADClick extends ADIdLogTimed{
         return campaignId;
     }
 
-    public Long getInteractionId() {
+    public long getInteractionId() {
         return interactionId;
     }
 
     @Override
     public String toString(){
-        return super.toString() + " cmpg: " + this.campaignId.toString() + " intId: " + this.getInteractionId().toString();
+        return super.toString() + " cmpg: " + this.campaignId + " intId: " + this.interactionId;
     }
 }

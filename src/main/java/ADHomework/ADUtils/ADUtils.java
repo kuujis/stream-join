@@ -62,18 +62,14 @@ public class ADUtils {
 
     }
 
-
-    public synchronized static Consumer<? super Stream<ADIdLogTimed>> writeToCsv(StatefulBeanToCsv beanToCsv) {
-        return o -> {
-            try {
-                beanToCsv.write(o);
-            } catch (CsvDataTypeMismatchException dtm) {
-                System.out.printf("Data type mismatch for %s \n", o.toString());
-            } catch (CsvRequiredFieldEmptyException rfe) {
-                System.out.printf("Required field missing for %s \n", o.toString());
-            }
-            ;
-        };
+    public static void writeToCsv(ADIdLogTimed o, StatefulBeanToCsv beanToCsv) {
+        try {
+            beanToCsv.write(o);
+        } catch (CsvDataTypeMismatchException dtm) {
+            System.out.printf("Data type mismatch for %s \n", o.toString());
+        } catch (CsvRequiredFieldEmptyException rfe) {
+            System.out.printf("Required field missing for %s \n", o.toString());
+        }
     }
 
     public synchronized static boolean logTimeInRange(Date timeToCheck, Date rangeEndPoint, long range) {

@@ -33,9 +33,9 @@ public class ADClickTest {
     public void testProperLineIsParsedIntoADClick() throws ParseException {
         ADClick adClick = new ADClick(properLine);
         //151925412000204915,2018-02-22 00:01:34.388,1232120,7443884296972096163
-        assertEquals(151925412000204915l, adClick.getId().longValue());
+        assertEquals(151925412000204915l, adClick.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:01:34.388"), adClick.getLogTime());
         assertEquals(1232120, adClick.getCampaignId().intValue());
-        assertEquals(7443884296972096163l, adClick.getInteractionId().longValue());
+        assertEquals(7443884296972096163l, adClick.getInteractionId());
     }
 }

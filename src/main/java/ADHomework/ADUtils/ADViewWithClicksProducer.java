@@ -37,19 +37,19 @@ public class ADViewWithClicksProducer {
                 .filter(adView -> adView != null)
                 //TODO: need to filter all garbage then act on good adViews only
                 .flatMap(adView -> includeClicks(clicksPath, adView))
-                .filter(adViewWithClick -> adViewWithClick.getClickId() != null)
-                .forEach((Consumer<? super ADViewWithClick>) ADUtils.writeToCsv(beanToCsv));
+                .filter(adViewWithClick -> adViewWithClick != null)
+                .forEach(adViewWithClick ->  ADUtils.writeToCsv(adViewWithClick, beanToCsv));
     }
 
     private Stream<ADViewWithClick> includeClicks(Path clicksPath, ADView adView) {
         BufferedReader clicks = null;
         try {
             clicks = Files.newBufferedReader(clicksPath);
-            System.out.printf("Handling ADView.id %s \n",adView.getId().toString());
+            System.out.printf("Handling ADView.id %s \n",adView.getId());
             return clicks.lines()
                     .map(ADUtils.lineToADClick)
                     .filter(adClick -> adClick != null)
-                    .filter(adClick -> adView.getId().compareTo(adClick.getInteractionId()) == 0)
+                    .filter(adClick -> adView.getId() == adClick.getInteractionId())
                     .map(adClick -> new ADViewWithClick(adView.getId(), adView.getLogTime(), adClick.getId()));
         } catch (IOException e) {
             System.out.printf("Failed to create new reader for Path %s \n", clicksPath.toString());

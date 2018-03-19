@@ -1,11 +1,10 @@
 package ADHomework.ADEntities;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class ADViewWithClick extends ADIdLogTimed{
 
-    private final Long clickId;// = Click.Id;
+    private final long clickId;// = Click.Id;
 
     public ADViewWithClick(Long id, Date logTime, Long clickId){
         this.clickId = clickId;
@@ -13,13 +12,13 @@ public class ADViewWithClick extends ADIdLogTimed{
         this.id = id;
     };
 
-    public Long getClickId() {
+    public long getClickId() {
         return clickId;
     }
 
     @Override
     public String toString(){
-        return super.toString() + " clickId: " + this.clickId.toString();
+        return super.toString() + " clickId: " + this.clickId;
     }
 
 }
