@@ -67,6 +67,7 @@ public class ADViewableViewsProducer {
                                 ADConstants.timeWindow * (ADConstants.bufferSize + 1)))
                         //.peek(adVV -> System.out.printf("#### for collect adVV %s\n", adVV.toString()))
                         .collect(Collectors.toList());
+                //TODO: consider adding one by one instead of en masse, no need to recreate vv stream maybe?
                 this.getVvCache().clear();
                 this.getVvCache().addAll(matchingVVs);
                 System.out.printf("Refreshing cache for %s , size of cache %s \n", adView.getId(), matchingVVs.size());
