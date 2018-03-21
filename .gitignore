@@ -22,7 +22,7 @@
 hs_err_pid*
 
 #output folders
-build*
+build/*
 gradle/*
 .gradle/*
 .idea/*
