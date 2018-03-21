@@ -1,11 +1,15 @@
 package ADHomework.ADEntities;
 
 import ADHomework.ADUtils.ADConstants;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
 
 import java.text.ParseException;
 
 public class ADViewableView extends ADIdLogTimed{
 
+    @CsvBindByName(column = "interactionId")
+    @CsvBindByPosition(position = 2)
     private final long interactionId;
 
     public ADViewableView(String line) throws ParseException {

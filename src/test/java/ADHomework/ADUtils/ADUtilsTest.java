@@ -18,12 +18,17 @@ class ADUtilsTest {
     }
     @Test
     public void testLogTimeInRange() throws ParseException {
-        Date timeA = ADConstants.df.parse("2018-02-22 00:00:00.127");
-        Date timeB = ADConstants.df.parse("2018-02-22 00:00:02.127");
-        long range = 3000;
-        assertTrue(ADUtils.logTimeInRange(timeA,timeB,range));
+        Date timeBefore = ADConstants.df.parse("2018-02-22 00:00:00.127");
+        Date timeIn = ADConstants.df.parse("2018-02-22 00:05:00.127");
+        Date timeAfter = ADConstants.df.parse("2018-02-22 00:10:00.127");
 
-        timeB = ADConstants.df.parse("2018-02-22 00:00:08.127");
-        assertFalse(ADUtils.logTimeInRange(timeA,timeB,range));
+        Date startPoint = ADConstants.df.parse("2018-02-22 00:01:02.127");
+        Date endPoint = ADConstants.df.parse("2018-02-22 00:09:02.127");
+
+        long range = 3000;
+        assertFalse(ADUtils.logTimeInRange(timeBefore,startPoint,endPoint));
+        assertTrue(ADUtils.logTimeInRange(timeIn, startPoint,endPoint));
+        assertFalse(ADUtils.logTimeInRange(timeAfter, startPoint,endPoint));
+
     }
 }

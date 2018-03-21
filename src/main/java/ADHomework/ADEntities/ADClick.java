@@ -11,6 +11,7 @@ import java.text.ParseException;
 public class ADClick extends ADIdLogTimed{
 
     private final int campaignId;
+
     private final long interactionId;
 
     public ADClick(String line) throws ParseException {

@@ -18,7 +18,7 @@ public class ADViewTest {
 
     private String line0 = "id,logtime,campaignid";
     private String badIdLine = "\"bad,number with comma\",2018-02-22 00:00:00.127,1221633";
-    private String properLine = "\"5,76777668144944E+018\",2018-02-22 00:00:00.127,1221633";
+    private String properLine = "5767776681449439088,2018-02-22 00:00:00.127,1221633";
 
     @Test // (expected = ParseException.class)
     public void testExceptionsThrownOnBadLines() throws ParseException {

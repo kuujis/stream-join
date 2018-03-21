@@ -1,7 +1,7 @@
-package ADHomework.ADUtils;
+package ADHomework.ADUtils.ADCollectors;
 
 import ADHomework.ADEntities.ADStatistic;
-import ADHomework.ADEntities.ADView;
+import ADHomework.ADEntities.ADViewableView;
 
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -9,9 +9,8 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-public class CampaignCollector implements Collector<ADView, ADStatistic, ADStatistic> {
+public class ADViewableViewsCollector implements Collector<ADViewableView, ADStatistic, ADStatistic> {
 //    public interface Collector<T, A, R> {
 //        Supplier<A> supplier();
 //        BiConsumer<A, T> accumulator();
@@ -21,35 +20,40 @@ public class CampaignCollector implements Collector<ADView, ADStatistic, ADStati
 //    }
 
     @Override
-    public Supplier<ADStatistic> supplier() {
+    public synchronized Supplier<ADStatistic> supplier() {
         return ADStatistic::new;
     }
 
     @Override
-    public BiConsumer<ADStatistic, ADView> accumulator() {
+    public synchronized BiConsumer<ADStatistic, ADViewableView> accumulator() {
         return (stat, view) -> {
             if (stat.getCampaignId() == 0) {
-                stat.setCampaignId(view.getCampaignId());
+                //TODO: nonsense here \/
+                stat.setCampaignId((int) view.getId());
             }
-            stat.setViews(stat.getViews() + 1);
+            stat.setClicks(stat.getClicks() + 1);
         };
     }
 
     @Override
-    public BinaryOperator<ADStatistic> combiner() {
+    public synchronized BinaryOperator<ADStatistic> combiner() {
         return (stat1, stat2) -> {
-            stat1.setViews(stat1.getViews() + stat2.getViews());
+            stat1.setClicks(stat1.getClicks() + stat2.getClicks());
             return stat1;
         };
     }
 
     @Override
-    public Function<ADStatistic, ADStatistic> finisher() {
+    public synchronized Function<ADStatistic, ADStatistic> finisher() {
         return Function.identity();
     }
 
     @Override
-    public Set<Characteristics> characteristics() {
+    public synchronized Set<Characteristics> characteristics() {
         return Set.of(Characteristics.IDENTITY_FINISH, Characteristics.UNORDERED);
+    }
+
+    public static synchronized ADViewableViewsCollector clicksCollector() {
+        return new ADViewableViewsCollector();
     }
 }
