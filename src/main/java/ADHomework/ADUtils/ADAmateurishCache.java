@@ -1,6 +1,6 @@
 package ADHomework.ADUtils;
 
-import ADHomework.ADEntities.ADIdLogTimed;
+import ADHomework.ADEntities.ADIdLogTimedCmpgn;
 import ADHomework.ADEntities.ADView;
 
 import java.io.BufferedReader;
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ADAmateurishCache<T extends ADIdLogTimed> {
+public class ADAmateurishCache<T extends ADIdLogTimedCmpgn> {
     private List<T> cache;
     private int timeWindow;
     private int bufferSize;

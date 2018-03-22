@@ -7,17 +7,20 @@ import com.opencsv.bean.CsvDate;
 
 import java.util.Date;
 
-public class ADIdLogTimed {
+public abstract class ADIdLogTimedCmpgn {
+
+    @CsvBindByName(column = "id")
+    @CsvBindByPosition(position = 0)
+    protected long id;
 
     @CsvBindByName(column = "logTime")
     @CsvBindByPosition(position = 1)
     @CsvDate(ADConstants.DATE_FORMAT)
     protected Date logTime;
 
-    @CsvBindByName(column = "id")
-    @CsvBindByPosition(position = 0)
-    protected long id;
-
+    @CsvBindByName(column = "campaignId")
+    @CsvBindByPosition(position = 2)
+    protected int campaignId;
 
     public Date getLogTime() {
         return logTime;
@@ -27,8 +30,12 @@ public class ADIdLogTimed {
         return id;
     };
 
+    public int getCampaignId(){
+        return campaignId;
+    }
+
     @Override
     public String toString(){
-        return "Id: " + this.id + " logTime: " + ADConstants.df.format(this.logTime);
+        return "Id: " + this.id + " logTime: " + ADConstants.df.format(this.logTime) + " campaignId: " + this.campaignId;
     }
 }

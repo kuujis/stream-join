@@ -6,7 +6,7 @@ import com.opencsv.bean.CsvBindByPosition;
 
 import java.text.ParseException;
 
-public class ADViewableView extends ADIdLogTimed{
+public class ADViewableView extends ADIdLogTimedCmpgn {
 
     @CsvBindByName(column = "interactionId")
     @CsvBindByPosition(position = 2)

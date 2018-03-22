@@ -32,7 +32,7 @@ public class ADViewableViewsProducer {
         this.amCache = new ADAmateurishCache<ADViewableView>(timeWindow, bufferSize);
         this.views = Files.newBufferedReader(Paths.get(args[0]));
         this.vvfile = args[2];
-        this.outputFile = args.length <= 5 ? args[4] : "FilteredViews.csv";
+        this.outputFile = args.length >= 5 ? args[4] : "FilteredViews.csv";
         this.timeWindow = timeWindow;
         this.bufferSize = bufferSize;
     }

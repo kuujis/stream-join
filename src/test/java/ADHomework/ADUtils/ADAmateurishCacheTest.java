@@ -1,6 +1,6 @@
 package ADHomework.ADUtils;
 
-import ADHomework.ADEntities.ADIdLogTimed;
+import ADHomework.ADEntities.ADIdLogTimedCmpgn;
 import ADHomework.ADEntities.ADView;
 import ADHomework.ADEntities.ADViewableView;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ class ADAmateurishCacheTest {
 
     @Test
     void testNewStreamReturnedBySupplier() {
-        ADAmateurishCache<ADIdLogTimed> cache = new ADAmateurishCache<ADIdLogTimed>(300000, 3);
+        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>(300000, 3);
 
         assertNotSame(cache.getCache().stream(), cache.cache().get());
     }
@@ -23,7 +23,8 @@ class ADAmateurishCacheTest {
     @Test
     void cacheIsOk() throws IOException, ParseException {
         //only ViewableViewsST3 is important for this test
-        String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsST3.csv", "/FilteredViewsT3.csv"};
+        String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsST3.csv", "ViewsWithClicksS.csv", "/FilteredViewsT3.csv"};
+
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
 
         int timeWindow = 300000;
@@ -58,7 +59,7 @@ class ADAmateurishCacheTest {
         String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsS.csv", "/FilteredViews.csv"};
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
 
-        ADAmateurishCache<ADIdLogTimed> cache = new ADAmateurishCache<ADIdLogTimed>( 300000, 3);
+        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>( 300000, 3);
 
         ADView adView = new ADView("4564671159070995313,2018-02-22 00:15:10.815,1199166");
         ADViewableView tooOldVV = new ADViewableView("151925403000315809,2018-02-22 00:00:09.216,4564671159070995313");
@@ -75,7 +76,7 @@ class ADAmateurishCacheTest {
         String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsS.csv", "/FilteredViews.csv"};
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
 
-        ADAmateurishCache<ADIdLogTimed> cache = new ADAmateurishCache<ADIdLogTimed>( 300000, 3);
+        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>( 300000, 3);
 
         ADView adView = new ADView("4564671159070995313,2018-02-22 00:00:00.815,1199166");
         ADViewableView inTimeWindow = new ADViewableView("151925403000315809,2018-02-22 00:00:09.216,4564671159070995313");

@@ -7,16 +7,11 @@ import com.opencsv.bean.CsvBindByPosition;
 import java.text.ParseException;
 import java.util.Date;
 
-public class ADViewWithClick extends ADIdLogTimed{
+public class ADViewWithClick extends ADIdLogTimedCmpgn {
 
     @CsvBindByName(column = "clickId")
-    @CsvBindByPosition(position = 2)
-    private final long clickId;// = Click.Id;
-
-
-    @CsvBindByName(column = "campaignId")
     @CsvBindByPosition(position = 3)
-    private final int campaignId;
+    private final long clickId;// = Click.Id;
 
     public ADViewWithClick(Long id, Date logTime, Long clickId, Integer campaignId){
         this.clickId = clickId;
@@ -29,17 +24,13 @@ public class ADViewWithClick extends ADIdLogTimed{
         String[] chunks = line.split(",");
         this.logTime = ADConstants.df.parse(chunks[1].replaceAll("\"", ""));
         this.id = Long.parseLong(chunks[0].replaceAll("\"", ""));
-        this.clickId = Long.parseLong(chunks[2].replaceAll("\"", ""));
-        this.campaignId = Integer.parseInt(chunks[3].replaceAll("\"", ""));
+        this.campaignId = Integer.parseInt(chunks[2].replaceAll("\"", ""));
+        this.clickId = Long.parseLong(chunks[3].replaceAll("\"", ""));
+
     }
 
     public long getClickId() {
         return clickId;
-    }
-
-
-    public int getCampaignId() {
-        return campaignId;
     }
 
     @Override

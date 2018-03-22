@@ -88,7 +88,7 @@ public class ADUtils {
 
     }
 
-    public static synchronized void writeToCsv(ADIdLogTimed o, StatefulBeanToCsv beanToCsv) {
+    public static synchronized void writeToCsv(Object o, StatefulBeanToCsv beanToCsv) {
         try {
             beanToCsv.write(o);
         } catch (CsvDataTypeMismatchException dtm) {

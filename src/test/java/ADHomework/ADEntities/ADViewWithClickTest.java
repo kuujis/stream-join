@@ -27,8 +27,8 @@ class ADViewWithClickTest {
     }
 
     private String line0 = "\"id\",\"logTime\",\"clickId\",\"campaignId\"";
-    private String badIdLine = "\"bad number\",\"2018-02-22 00:01:26.639\",\"151925412000204915\",\"1232120\"";
-    private String badDateLline = "\"bad number\",\"Z018-02-99 00:01:26.639\",\"151925412000204915\",\"1232120\"";
+    private String badIdLine = "\"bad number\",\"2018-02-22 00:01:26.639\",\"1232120\",\"151925412000204915\"";
+    private String badDateLline = "\"bad number\",\"Z018-02-99 00:01:26.639\",\"1232120\",\"151925412000204915\"";
 
 
     @Test
@@ -51,7 +51,7 @@ class ADViewWithClickTest {
     @Test
     public void testStringConstructor() throws ParseException {
 
-        String properLine = "\"7443884296972096163\",\"2018-02-22 00:01:26.639\",\"151925412000204915\",\"1232120\"";
+        String properLine = "\"7443884296972096163\",\"2018-02-22 00:01:26.639\",\"1232120\",\"151925412000204915\"";
 
         ADViewWithClick adViewWithClick = new ADViewWithClick(properLine);
 

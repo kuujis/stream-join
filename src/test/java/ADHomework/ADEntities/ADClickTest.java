@@ -35,7 +35,7 @@ public class ADClickTest {
         //151925412000204915,2018-02-22 00:01:34.388,1232120,7443884296972096163
         assertEquals(151925412000204915l, adClick.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:01:34.388"), adClick.getLogTime());
-        assertEquals(1232120, adClick.getCampaignId().intValue());
+        assertEquals(1232120, adClick.getCampaignId());
         assertEquals(7443884296972096163l, adClick.getInteractionId());
     }
 }

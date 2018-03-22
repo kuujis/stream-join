@@ -8,7 +8,7 @@ import java.text.ParseException;
  * Could be an extension of ADVIewableView, but then need to manipulate constructor parameters,
  * leads to more memory usage. Probably :)
  */
-public class ADClick extends ADIdLogTimed{
+public class ADClick extends ADIdLogTimedCmpgn {
 
     private final int campaignId;
 
@@ -23,16 +23,12 @@ public class ADClick extends ADIdLogTimed{
         this.logTime = ADConstants.df.parse(chunks[1]);
     }
 
-    public Integer getCampaignId() {
-        return campaignId;
-    }
-
     public long getInteractionId() {
         return interactionId;
     }
 
     @Override
     public String toString(){
-        return super.toString() + " cmpg: " + this.campaignId + " intId: " + this.interactionId;
+        return super.toString() + " intId: " + this.interactionId;
     }
 }

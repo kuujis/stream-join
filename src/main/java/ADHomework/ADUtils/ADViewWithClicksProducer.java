@@ -35,7 +35,7 @@ public class ADViewWithClicksProducer {
 
         ADMappingStrategy<ADViewWithClick> strategy = new ADMappingStrategy<>();
         strategy.setType(ADViewWithClick.class);
-        String[] header = {"id", "logTime", "clickId", "campaignId"};
+        String[] header = {"id", "logTime", "campaignId", "clickId"};
         strategy.setColumnMapping(header);
         strategy.setHeader(header);
 

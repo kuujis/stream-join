@@ -19,7 +19,7 @@ import java.util.Collections;
  */
 public class StreamJoin {
 
-    public static void main(String[] args) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    public static void main(String[] args) throws IOException {
 
         if (args.length < 6) {
             args = new String[]{"D:/Projects/stream-join/Views.csv",
@@ -31,12 +31,12 @@ public class StreamJoin {
             System.out.printf("Serious lack of args detected, defaulting to %s \n", Arrays.toString(args));
         }
         //join Views with Clicks
-        //ADViewWithClicksProducer clicks = new ADViewWithClicksProducer(args,300000, 3);
-        //clicks.generateViewsWithClicks();
+        ADViewWithClicksProducer clicks = new ADViewWithClicksProducer(args,300000, 3);
+        clicks.generateViewsWithClicks();
 
         //Join Views with ViewableViews
-        //ADViewableViewsProducer prod = new ADViewableViewsProducer(args, 300000, 3);
-        //prod.generateViewableViews();
+        ADViewableViewsProducer prod = new ADViewableViewsProducer(args, 300000, 3);
+        prod.generateViewableViews();
 
         //Generate statistics
         ADStatisticsProducer stat = new ADStatisticsProducer(args);
