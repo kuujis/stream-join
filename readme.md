@@ -1,9 +1,9 @@
 #Data processing excercise
 
 execute below to run with default input files, output files will be created
-*gradlew run  "Views.csv Clicks.csv ViewableViews.csv"* 
+*gradle run  "Views.csv Clicks.csv ViewableViews.csv"* 
 
-"gradlew run" will execute with default parameters expecting the first three and outputing the last 3 files, all in current folder.
+"gradle run" will execute with default parameters expecting the first three and outputing the last 3 files, all in current folder.
 * Views.csv
 * Clicks.csv
 * ViewableViews.csv
