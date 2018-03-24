@@ -138,10 +138,9 @@ class ADUtilsTest {
                 "FilteredViews.csv",
                 "statistics.csv"};
 
-        String[] updatedArgs = ADUtils.updateFiles(partial);
-
-        assertEquals(defaults.length, updatedArgs.length);
-        assertEquals(defaults[5], updatedArgs[5]);
+        assertThrows(IOException.class,() -> {
+            String[] updatedArgs = ADUtils.updateFiles(partial);
+        });
     }
 
 }

@@ -143,6 +143,11 @@ public class ADUtils {
 
     private static void chekcFilesExist(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder();
+
+        if (args.length < 3){
+            throw new IOException("Input files less than three: " + args);
+        }
+
         for (int i = 0; i < 3; i++ ) {
             File views = new File(args[i]);
             if(!views.exists()){
