@@ -6,6 +6,7 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -121,16 +122,14 @@ public class ADUtils {
         }
         if (args.length < 6) {
 
-            List<String> ar = Arrays.asList(args);
-            switch (ar.size()){
+            List<String> ar = new ArrayList<>();
+            ar.addAll(Arrays.asList(args));
+            switch (args.length){
                 case 3:{
                     ar.add(defaults[3]);
-                    ar.add(defaults[4]);
-                    ar.add(defaults[5]);
                 }
                 case 4:{
                     ar.add(defaults[4]);
-                    ar.add(defaults[5]);
                 }
                 case 5:{
                     ar.add(defaults[5]);

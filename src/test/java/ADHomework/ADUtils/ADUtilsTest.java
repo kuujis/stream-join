@@ -105,4 +105,43 @@ class ADUtilsTest {
 
         assertEquals(args, updatedArgs);
     }
+
+    @Test
+    void updateFilesPartialThings() {
+
+        String[] partial = new String[]{"Views.csv",
+                "Clicks.csv",
+                "ViewableViews.csv"};
+
+        String[] defaults = new String[]{"Views.csv",
+                "Clicks.csv",
+                "ViewableViews.csv",
+                "ViewsWithClicks.csv",
+                "FilteredViews.csv",
+                "statistics.csv"};
+
+        String[] updatedArgs = ADUtils.updateFiles(partial);
+
+        assertEquals(defaults.length, updatedArgs.length);
+        assertEquals(defaults[5], updatedArgs[5]);
+    }
+
+    @Test
+    void updateCompleteLaziness() {
+
+        String[] partial = new String[]{};
+
+        String[] defaults = new String[]{"Views.csv",
+                "Clicks.csv",
+                "ViewableViews.csv",
+                "ViewsWithClicks.csv",
+                "FilteredViews.csv",
+                "statistics.csv"};
+
+        String[] updatedArgs = ADUtils.updateFiles(partial);
+
+        assertEquals(defaults.length, updatedArgs.length);
+        assertEquals(defaults[5], updatedArgs[5]);
+    }
+
 }
