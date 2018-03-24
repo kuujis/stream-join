@@ -10,6 +10,3 @@ Launching the jar file with "java -jar stream-join-1.0.0-SNAPSHOT.jar" will hand
 Launching the jar file "java -jar stream-join-1.0.0-SNAPSHOT.jar "Views.csv" "Clicks.csv" "ViewableViews.csv"" will expect that provided files exist and are reachable.
 
 ".idea" folder is used by IntelliJ, had to update some settings manually to avoid coverage calculation output folder usage issues, can be safely ignored if building with gradle or running jar files.
-
-
-

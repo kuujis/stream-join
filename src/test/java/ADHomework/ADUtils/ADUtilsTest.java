@@ -144,4 +144,16 @@ class ADUtilsTest {
         assertEquals(defaults[5], updatedArgs[5]);
     }
 
+    @Test
+    void testCheckFilesExist() {
+        String[] partial = new String[]{"good",
+                "long",
+                "nap"};
+
+        assertThrows(IOException.class,() -> {
+            ADUtils.checkFilesExist(partial);
+        });
+
+    }
+
 }

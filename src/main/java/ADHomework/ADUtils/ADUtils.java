@@ -109,16 +109,11 @@ public class ADUtils {
                 "statistics.csv"};
 
         if (args.length < 3) {
-            args = new String[]{"Views.csv",
-                    "Clicks.csv",
-                    "ViewableViews.csv",
-                    "ViewsWithClicks.csv",
-                    "FilteredViews.csv",
-                    "statistics.csv"};
+            args = defaults;
             System.out.printf("Serious case of lazy detected, defaulting to %s \n", Arrays.toString(args));
         }
 
-        chekcFilesExist(args);
+        checkFilesExist(args);
 
         if (args.length < 6) {
 
@@ -141,7 +136,7 @@ public class ADUtils {
         return args;
     }
 
-    private static void chekcFilesExist(String[] args) throws IOException {
+    static void checkFilesExist(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < 3; i++ ) {
