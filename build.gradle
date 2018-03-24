@@ -29,15 +29,11 @@ apply plugin: 'idea'
 apply plugin: 'org.junit.platform.gradle.plugin'
 
 run {
-    args += 'D:\\Projects\\stream-join\\Views.csv D:\\Projects\\stream-join\\Clicks.csv D:\\Projects\\stream-join\\ViewableViews.csv'
+    args += 'Views.csv Clicks.csv ViewableViews.csv'
 }
 
 sourceCompatibility = "1.9"
 targetCompatibility = "1.9"
-
-junitPlatform {
-    logManager 'org.apache.logging.log4j.jul.LogManager'
-}
 
 mainClassName = "ADHomework.StreamJoin"
 
@@ -51,21 +47,15 @@ if (javaVersion < 10) apply plugin: 'jacoco'
 jar {
     baseName = 'stream-join'
     version = '1.0.0-SNAPSHOT'
-    jar {
-        manifest {
-            attributes 'Main-Class': 'ADHomework.StreamJoin'
-        }
+    manifest {
+        attributes 'Main-Class': 'ADHomework.StreamJoin'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
 test {
-    useJUnitPlatform {
-        // includeEngines 'junit-jupiter', 'junit-vintage'
-        // excludeEngines 'custom-engine'
-
-        // includeTags 'fast'
-        excludeTags 'slow'
-    }
 
     testLogging {
         events 'started', 'passed', 'skipped', 'failed'
@@ -77,16 +67,9 @@ test {
 }
 
 dependencies {
-    //test.useJUnitPlatform()
-
-    // JUnit Jupiter API and TestEngine implementation
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testRuntime "org.junit.platform:junit-platform-launcher:${junitPlatformVersion}"
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
-
-    // To use Log4J's LogManager
-    //testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
-    //testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
 
     compile group: 'com.opencsv', name: 'opencsv', version: '4.1'
     compile 'commons-io:commons-io:2.6'

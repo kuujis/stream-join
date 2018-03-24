@@ -14,29 +14,33 @@ class StreamJoin {
 
     /**
      * @param args - expected list of paths to files to work with:
-     *      Views.csv - input
-            Clicks.csv - input
-            ViewableViews.csv - input
-            ViewsWithClicks.csv - output - views joined with clicks
-            FilteredViews.csv - output - views filtered if they were viewable
-            statistics.csv - output - statistics
+     *             Views.csv - input
+     *             Clicks.csv - input
+     *             ViewableViews.csv - input
+     *             ViewsWithClicks.csv - output - views joined with clicks
+     *             FilteredViews.csv - output - views filtered if they were viewable
+     *             statistics.csv - output - statistics
      * @throws IOException - if something gets messed up with files
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        args = ADUtils.updateFiles(args);
-        //join Views with Clicks
-        ADViewWithClicksProducer clicks = new ADViewWithClicksProducer(args,300000, 3);
-        clicks.generateViewsWithClicks();
+        try {
+            args = ADUtils.updateFiles(args);
 
-        //Join Views with ViewableViews
-        ADViewableViewsProducer prod = new ADViewableViewsProducer(args, 300000, 3);
-        prod.generateViewableViews();
+            //join Views with Clicks
+            ADViewWithClicksProducer clicks = new ADViewWithClicksProducer(args, 300000, 3);
+            clicks.generateViewsWithClicks();
 
-        //Generate statistics
-        ADStatisticsProducer stat = new ADStatisticsProducer(args);
-        stat.generate();
+            //Join Views with ViewableViews
+            ADViewableViewsProducer prod = new ADViewableViewsProducer(args, 300000, 3);
+            prod.generateViewableViews();
 
+            //Generate statistics
+            ADStatisticsProducer stat = new ADStatisticsProducer(args);
+            stat.generate();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

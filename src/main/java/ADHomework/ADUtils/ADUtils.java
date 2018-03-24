@@ -5,7 +5,8 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import java.io.UncheckedIOException;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,13 +100,15 @@ public class ADUtils {
         return rangeStartPoint.getTime() < timeToCheck.getTime() & timeToCheck.getTime() < rangeEndPoint.getTime();
     }
 
-    public static String[] updateFiles(String[] args) {
+    public static String[] updateFiles(String[] args) throws IOException {
         String[] defaults = new String[]{"Views.csv",
                 "Clicks.csv",
                 "ViewableViews.csv",
                 "ViewsWithClicks.csv",
                 "FilteredViews.csv",
                 "statistics.csv"};
+
+        chekcFilesExist(args);
 
         if (args.length < 3) {
             args = new String[]{"Views.csv",
@@ -116,6 +119,7 @@ public class ADUtils {
                     "statistics.csv"};
             System.out.printf("Serious case of lazy detected, defaulting to %s \n", Arrays.toString(args));
         }
+
         if (args.length < 6) {
 
             List<String> ar = new ArrayList<>(Arrays.asList(args));
@@ -135,5 +139,18 @@ public class ADUtils {
             System.out.printf("Lack of args detected, defaulting to %s \n", Arrays.toString(args));
         }
         return args;
+    }
+
+    private static void chekcFilesExist(String[] args) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++ ) {
+            File views = new File(args[i]);
+            if(!views.exists()){
+                sb.append("INPUT File " + args[i] + " could not be found.\n");
+            }
+        }
+        if (!sb.toString().isEmpty()){
+            throw new IOException(sb.toString());
+        }
     }
 }

@@ -25,9 +25,9 @@ class ADTestCommons {
         File stats = new File(pathToTestDir + args[5]);
 
         //ensure that output files exists
-        createAndLogResults(vwClicks, " views with clicks: ");
-        createAndLogResults(fviews, " filtered views: ");
-        createAndLogResults(stats, " statistics: ");
+        createAndLogResults(vwClicks, "views with clicks: ");
+        createAndLogResults(fviews, "filtered views: ");
+        createAndLogResults(stats, "statistics: ");
 
         args = new String[]{views.getAbsolutePath(), clicks.getAbsolutePath(), vviews.getAbsolutePath(), vwClicks.getAbsolutePath(), fviews.getAbsolutePath(), stats.getAbsolutePath()};
         return args;

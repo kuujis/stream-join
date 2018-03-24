@@ -6,6 +6,7 @@ import ADHomework.ADEntities.ADViewWithClick;
 import ADHomework.ADEntities.ADViewableView;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -91,7 +92,7 @@ class ADUtilsTest {
     }
 
     @Test
-    void updateFilesFullset() {
+    void updateFilesFullset() throws IOException {
 
         String[] args = new String[]{"Views.csv",
                 "Clicks.csv",
@@ -106,7 +107,7 @@ class ADUtilsTest {
     }
 
     @Test
-    void updateFilesPartialThings() {
+    void updateFilesPartialThings() throws IOException {
 
         String[] partial = new String[]{"Views.csv",
                 "Clicks.csv",
@@ -126,7 +127,7 @@ class ADUtilsTest {
     }
 
     @Test
-    void updateCompleteLaziness() {
+    void updateCompleteLaziness() throws IOException {
 
         String[] partial = new String[]{};
 
