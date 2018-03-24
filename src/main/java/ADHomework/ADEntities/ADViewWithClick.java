@@ -18,12 +18,13 @@ public class ADViewWithClick extends ADIdLogTimedCmpgn {
         this.logTime = logTime;
         this.id = id;
         this.campaignId = campaignId;
-    };
+    }
 
     public ADViewWithClick(String line) throws ParseException {
         String[] chunks = line.split(",");
-        this.logTime = ADConstants.df.parse(chunks[1].replaceAll("\"", ""));
+
         this.id = Long.parseLong(chunks[0].replaceAll("\"", ""));
+        this.logTime = ADConstants.df.parse(chunks[1].replaceAll("\"", ""));
         this.campaignId = Integer.parseInt(chunks[2].replaceAll("\"", ""));
         this.clickId = Long.parseLong(chunks[3].replaceAll("\"", ""));
 

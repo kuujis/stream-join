@@ -14,7 +14,7 @@ import java.util.List;
  * Basically a copy with few tunings: header and a bug fix for https://sourceforge.net/p/opencsv/bugs/168/ in a private method
  *
  */
-public class ADMappingStrategy<T> extends ColumnPositionMappingStrategy<T> {
+class ADMappingStrategy<T> extends ColumnPositionMappingStrategy<T> {
 
     public void setHeader(String[] head){
         header = head;

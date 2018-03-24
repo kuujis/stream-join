@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Kazys on 2018-03-10.
  */
-public class StreamJoin {
+class StreamJoin {
 
     /**
      * @param args - expected list of paths to files to work with:
@@ -20,7 +20,7 @@ public class StreamJoin {
             ViewsWithClicks.csv - output - views joined with clicks
             FilteredViews.csv - output - views filtered if they were viewable
             statistics.csv - output - statistics
-     * @throws IOException
+     * @throws IOException - if something gets messed up with files
      */
     public static void main(String[] args) throws IOException {
 

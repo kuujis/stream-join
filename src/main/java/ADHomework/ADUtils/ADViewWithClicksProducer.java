@@ -11,19 +11,17 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class ADViewWithClicksProducer {
-    private final int timeWindow;
-    private final int bufferSize;
+
     private final BufferedReader views;
     private final String clicks;
     private final String outputFile;
     private final ADAmateurishCache<ADClick> clCache;
 
     public ADViewWithClicksProducer(String[] args, int timeWindow, int bufferSize) throws IOException {
-        this.timeWindow = timeWindow;
-        this.bufferSize = bufferSize;
         this.views = Files.newBufferedReader(Paths.get(args[0]));
         this.clicks = args[1];
         this.outputFile = args.length >= 4 ? args[3] : "ViewsWithClicks.csv";
@@ -39,7 +37,7 @@ public class ADViewWithClicksProducer {
         strategy.setColumnMapping(header);
         strategy.setHeader(header);
 
-        StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer)
+        StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder<ADViewWithClick>(writer)
                 .withMappingStrategy(strategy)
                 .build();
 
@@ -49,13 +47,13 @@ public class ADViewWithClicksProducer {
         writer.close();
     }
 
-    public void getADViewsWithClicks(Stream<String> views, StatefulBeanToCsv beanToCsv) {
+    private void getADViewsWithClicks(Stream<String> views, StatefulBeanToCsv beanToCsv) {
 
         views.map(ADUtils.lineToADView)
-                .filter(adView -> adView != null)
+                .filter(Objects::nonNull)
                 //TODO: need to filter all garbage then act on good adViews only
-                .flatMap(adView -> includeClicks(adView))
-                .filter(adViewWithClick -> adViewWithClick != null)
+                .flatMap(this::includeClicks)
+                .filter(Objects::nonNull)
                 .forEachOrdered(adViewWithClick ->  ADUtils.writeToCsv(adViewWithClick, beanToCsv));
     }
 

@@ -5,6 +5,7 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import java.io.UncheckedIOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,49 +17,43 @@ import java.util.function.Function;
  * Created by Kazys on 2018-03-10.
  */
 public class ADUtils {
-    public static Function<String, ADView> lineToADView = new Function<String, ADView>() {
+    public static final Function<String, ADView> lineToADView = new Function<>() {
         public synchronized ADView apply(String line) {
             try {
                 return new ADView(line);
-            } catch (ParseException e) {
-                //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADView.\n", line);
-                return null;
-            } catch (NumberFormatException e) {
+            } catch (ParseException | NumberFormatException e) {
                 //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADView.\n", line);
                 return null;
             }
         }
+
         @Override
         public String toString() {
             return "lineToADView";
         }
     };
 
-    public static Function<String, ADViewWithClick> lineToADViewWithClick = new Function<String, ADViewWithClick>() {
+    public static final Function<String, ADViewWithClick> lineToADViewWithClick = new Function<>() {
         public synchronized ADViewWithClick apply(String line) {
             try {
                 return new ADViewWithClick(line);
-            } catch (ParseException e) {
-                //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADView.\n", line);
-                return null;
-            } catch (NumberFormatException e) {
+            } catch (ParseException | NumberFormatException e) {
                 //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADView.\n", line);
                 return null;
             }
         }
+
         @Override
         public String toString() {
             return "lineToADViewWithClick";
         }
     };
 
-    public static Function<String, ADClick> lineToADClick = new Function<String, ADClick>() {
+    public static final Function<String, ADClick> lineToADClick = new Function<>() {
         public synchronized ADClick apply(String line) {
             try {
                 return new ADClick(line);
-            } catch (ParseException e) {
-                //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADClick.\n", line);
-            } catch (NumberFormatException e) {
+            } catch (ParseException | NumberFormatException e) {
                 //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADClick.\n", line);
             }
             return null;
@@ -70,23 +65,25 @@ public class ADUtils {
         }
     };
 
-    public static Function<String, ADViewableView> lineToADViewableView = new Function<String, ADViewableView>() {
+    public static final Function<String, ADViewableView> lineToADViewableView = new Function<>() {
         public synchronized ADViewableView apply(String line) {
             try {
                 return new ADViewableView(line);
-            } catch (ParseException e) {
-                //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADViewableView.\n", line);
-            } catch (NumberFormatException e) {
+            } catch (ParseException | NumberFormatException e) {
                 //System.out.printf("Could not parse line \"%s\" to ADHomework.ADEntities.ADViewableView.\n", line);
             }
             return null;
         }
+
         @Override
         public String toString() {
             return "lineToADViewableView";
         }
     };
 
+
+    @SuppressWarnings("unchecked")
+    //otherwise - need to implement two methods for differnt Object types... not worth it.
     public static synchronized void writeToCsv(Object o, StatefulBeanToCsv beanToCsv) {
         try {
             beanToCsv.write(o);
@@ -99,8 +96,7 @@ public class ADUtils {
 
     public static
     synchronized boolean logTimeInRange(Date timeToCheck, Date rangeStartPoint, Date rangeEndPoint) {
-        boolean ret = rangeStartPoint.getTime() < timeToCheck.getTime() & timeToCheck.getTime() < rangeEndPoint.getTime();
-        return ret;
+        return rangeStartPoint.getTime() < timeToCheck.getTime() & timeToCheck.getTime() < rangeEndPoint.getTime();
     }
 
     public static String[] updateFiles(String[] args) {
@@ -122,8 +118,7 @@ public class ADUtils {
         }
         if (args.length < 6) {
 
-            List<String> ar = new ArrayList<>();
-            ar.addAll(Arrays.asList(args));
+            List<String> ar = new ArrayList<>(Arrays.asList(args));
             switch (args.length){
                 case 3:{
                     ar.add(defaults[3]);

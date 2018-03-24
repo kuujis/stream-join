@@ -16,11 +16,9 @@ class ADStatisticsProducerTest {
     private ADViewWithClicksProducer vwClicks = null;
     private ADViewableViewsProducer vvS = null;
 
-    private String[] args = null;
-
     @BeforeAll
-    public void onSetup() throws IOException {
-        args = new String[]{"/ViewsS.csv",
+    void onSetup() throws IOException {
+        String[] args = new String[]{"/ViewsS.csv",
                 "/ClicksS.csv",
                 "/ViewableViewsS.csv",
                 "/ViewsWithClicksS.csv",
@@ -34,7 +32,7 @@ class ADStatisticsProducerTest {
     }
 
     @Test
-    void testConstructor() throws IOException {
+    void testConstructor() {
 
         assertTrue(sp.stats != null);
 
@@ -59,18 +57,7 @@ class ADStatisticsProducerTest {
     }
 
     @Test
-    void includeViewableViewInformation() {
-    }
-
-    @Test
-    void includeClickInformationToStats() {
-    }
-
-    @Test
-    void calculateViewsStatistics() {
-    }
-
-    @Test
     void printStats() {
+        //TODO: implement?
     }
 }

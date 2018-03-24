@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ADViewWithClickTest {
 
     @Test
-    public void testConstructor() throws ParseException {
-        long id = 1l;
-        long clickId = 2l;
+    void testConstructor() throws ParseException {
+        long id = 1L;
+        long clickId = 2L;
         Date logTime = ADConstants.df.parse("2018-02-22 00:00:00.127");
         int campaignId = 22;
 
@@ -25,20 +25,20 @@ class ADViewWithClickTest {
         assertEquals(campaignId, adViewWithClick.getCampaignId());
     }
 
-    private String line0 = "\"id\",\"logTime\",\"clickId\",\"campaignId\"";
-    private String badIdLine = "\"bad number\",\"2018-02-22 00:01:26.639\",\"1232120\",\"151925412000204915\"";
-    private String badDateLline = "\"bad number\",\"Z018-02-99 00:01:26.639\",\"1232120\",\"151925412000204915\"";
+    private final String line0 = "\"id\",\"logTime\",\"clickId\",\"campaignId\"";
+    private final String badIdLine = "\"bad number\",\"2018-02-22 00:01:26.639\",\"1232120\",\"151925412000204915\"";
+    private final String badDateLine = "\"7443884296972096163\",\"Z018-02-99 00:01:26.639\",\"1232120\",\"151925412000204915\"";
 
 
     @Test
-    public void testExceptionsThrownOnBadLines() throws ParseException {
+    void testExceptionsThrownOnBadLines() {
 
-        assertThrows(ParseException.class, () -> {
+        assertThrows(NumberFormatException.class, () -> {
             ADViewWithClick adView = new ADViewWithClick(line0);
         });
 
         assertThrows(ParseException.class, () -> {
-            ADViewWithClick adView = new ADViewWithClick(badDateLline);
+            ADViewWithClick adView = new ADViewWithClick(badDateLine);
         });
 
         assertThrows(NumberFormatException.class, () -> {
@@ -48,20 +48,20 @@ class ADViewWithClickTest {
     }
 
     @Test
-    public void testStringConstructor() throws ParseException {
+    void testStringConstructor() throws ParseException {
 
         String properLine = "\"7443884296972096163\",\"2018-02-22 00:01:26.639\",\"1232120\",\"151925412000204915\"";
 
         ADViewWithClick adViewWithClick = new ADViewWithClick(properLine);
 
-        assertTrue(7443884296972096163l == adViewWithClick.getId());
-        assertTrue(151925412000204915l == adViewWithClick.getClickId());
+        assertTrue(7443884296972096163L == adViewWithClick.getId());
+        assertTrue(151925412000204915L == adViewWithClick.getClickId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:01:26.639"), adViewWithClick.getLogTime());
         assertEquals(1232120, adViewWithClick.getCampaignId());
     }
 
     @Test
-    public void testToString() throws ParseException {
+    void testToString() throws ParseException {
         ADViewWithClick vwc = new ADViewWithClick("\"7443884296972096163\",\"2018-02-22 00:01:26.639\",\"1232120\",\"151925412000204915\"");
         assertEquals("Id: 7443884296972096163 logTime: 2018-02-22 00:01:26.639 campaignId: 1232120 clickId: 151925412000204915",
                 vwc.toString());

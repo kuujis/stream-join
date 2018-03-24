@@ -11,13 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.nio.file.Files.createFile;
 
 public class ADStatisticsProducer {
 
@@ -45,8 +42,6 @@ public class ADStatisticsProducer {
 
             System.out.println("With clicks: \n" + stats);
 
-            Map<Integer, ADStatistic> additionalInfo;
-
             includeViewableViewInformation();
 
             stats.entrySet().stream().parallel().map(Map.Entry::getValue).forEach(ADStatistic::refreshClickthrough);
@@ -60,12 +55,13 @@ public class ADStatisticsProducer {
         }
     }
 
-    public void includeViewableViewInformation() throws IOException {
+    private void includeViewableViewInformation() throws IOException {
         Map<Integer, ADStatistic> additionalInfo;
         Stream<String> viewableViews = Files.newBufferedReader(Paths.get(this.filteredViews)).lines();
         additionalInfo = Collections.synchronizedMap(viewableViews.map(ADUtils.lineToADView)
-                .filter(filteredView -> filteredView != null)
+                .filter(Objects::nonNull)
                 .parallel()
+                //false == collecting viewable views
                 .collect(Collectors.groupingBy(ADView::getCampaignId, ADStatisticsCollector.statisticsCollector(false))));
 
         additionalInfo.entrySet().stream()
@@ -74,15 +70,17 @@ public class ADStatisticsProducer {
                     if (stats.containsKey(s.getKey())) {
                         stats.get(s.getKey()).setViewableViews(s.getValue().getViewableViews());
                     } else {
+                        //should not happen
                         stats.put(s.getKey(), s.getValue());
+                        System.out.println("Strange statistic found, no corresponding campaign in views file:" + s);
                     }
                 });
     }
 
-    public void includeClickInformationToStats() throws IOException {
+    private void includeClickInformationToStats() throws IOException {
         Stream<String> filteredViews = Files.newBufferedReader(Paths.get(this.viewsWithClicks)).lines();
         Map<Integer, ADStatistic> additionalInfo = Collections.synchronizedMap(filteredViews.map(ADUtils.lineToADViewWithClick)
-                .filter(viewWithClick -> viewWithClick != null)
+                .filter(Objects::nonNull)
                 .parallel()
                 .collect(Collectors.groupingBy(ADViewWithClick::getCampaignId, ADStatisticsCollector.statisticsCollector(false))));
 
@@ -92,22 +90,24 @@ public class ADStatisticsProducer {
                     if (stats.containsKey(s.getKey())) {
                         stats.get(s.getKey()).setClicks(s.getValue().getClicks());
                     } else {
+                        //should not happen
                         stats.put(s.getKey(), s.getValue());
+                        System.out.println("Strange statistic found, no corresponding campaign in views file:" + s);
                     }
                 });
     }
 
-    public void calculateViewsStatistics() throws IOException {
+    private void calculateViewsStatistics() throws IOException {
         Stream<String> viewStream = Files.newBufferedReader(Paths.get(this.views)).lines();
         stats = viewStream.map(ADUtils.lineToADView)
-                .filter(adView -> adView != null)
+                .filter(Objects::nonNull)
                 .parallel()
                 //true == collecting views, not filtered viewable views
                 .collect(Collectors.groupingBy(ADView::getCampaignId, ADStatisticsCollector.statisticsCollector(true)));
 
     }
 
-    public void printStats() throws IOException {
+    private void printStats() throws IOException {
         Writer writer = null;
         try {
             File f = new File(statistics);
@@ -119,12 +119,11 @@ public class ADStatisticsProducer {
             strategy.setColumnMapping(header);
             strategy.setHeader(header);
 
-            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer)
+            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder<ADStatistic>(writer)
                     .withMappingStrategy(strategy)
                     .build();
 
-            stats.entrySet().stream()
-                    .forEach(s -> ADUtils.writeToCsv(s.getValue(), beanToCsv));
+            stats.forEach((key, value) -> ADUtils.writeToCsv(value, beanToCsv));
 
             System.out.println("Statistics file created: " + f.getAbsolutePath());
 
@@ -133,19 +132,7 @@ public class ADStatisticsProducer {
                 writer.close();
             }
         }
-        ;
 
     }
 
-//    private void createOrUpdateStats(ADView adView, Map<Integer, ADStatistic> stats) {
-//        ADStatistic stat = stats.get(adView.getCampaignId());
-//        stats.
-//        if (stat != null) {
-//            stat.setViews(stat.getViews() + 1);
-//        } else {
-//            stat = new ADStatistic(adView.getCampaignId());
-//            stat.setViews(1);
-//            stats.put(adView.getCampaignId(), stat);
-//        }
-//    }
 }

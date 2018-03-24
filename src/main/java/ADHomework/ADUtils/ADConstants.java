@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
  */
 public class ADConstants {
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-    public static final String separator = ",";
     public static final DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 
 }

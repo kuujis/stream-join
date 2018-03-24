@@ -17,7 +17,7 @@ class ADUtilsTest {
     void testLineToADView() throws ParseException, NumberFormatException {
         ADView view = ADUtils.lineToADView.apply("4564671159070995313,2018-02-22 00:03:05.815,1199166");
 
-        assertEquals(4564671159070995313l,view.getId());
+        assertEquals(4564671159070995313L,view.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:03:05.815"), view.getLogTime());
         assertEquals(1199166, view.getCampaignId());
 
@@ -32,7 +32,7 @@ class ADUtilsTest {
     void testLineToADClick() throws ParseException, NumberFormatException {
         ADClick click = ADUtils.lineToADClick.apply("151925412000204916,2018-02-22 00:14:35.388,1232120,4564671159070995313");
 
-        assertEquals(151925412000204916l,click.getId());
+        assertEquals(151925412000204916L,click.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:14:35.388"), click.getLogTime());
         assertEquals(1232120, click.getCampaignId());
 
@@ -48,9 +48,9 @@ class ADUtilsTest {
     void testLineToADViewableView() throws ParseException, NumberFormatException {
         ADViewableView view = ADUtils.lineToADViewableView.apply("151925403000315809,2018-02-22 00:05:07.216,4564671159070995313");
 
-        assertEquals(151925403000315809l,view.getId());
+        assertEquals(151925403000315809L,view.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:05:07.216"), view.getLogTime());
-        assertEquals(4564671159070995313l, view.getInteractionId());
+        assertEquals(4564671159070995313L, view.getInteractionId());
 
         assertNull(ADUtils.lineToADViewableView.apply("151925403000315809,2018-02zx44-22 00:05:0744545.216,4564671159070995313"));
 
@@ -63,10 +63,10 @@ class ADUtilsTest {
     void testLineToADViewWithClick() throws ParseException, NumberFormatException {
         ADViewWithClick view = ADUtils.lineToADViewWithClick.apply("\"4564671159070995313\",\"2018-02-22 00:03:05.815\",\"1199166\",\"151925412000204916\"");
 
-        assertEquals(4564671159070995313l,view.getId());
+        assertEquals(4564671159070995313L,view.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:03:05.815"), view.getLogTime());
         assertEquals(1199166, view.getCampaignId());
-        assertEquals(151925412000204916l, view.getClickId());
+        assertEquals(151925412000204916L, view.getClickId());
 
         assertNull(ADUtils.lineToADViewWithClick.apply("\"4564671159070995313\",\"2018-02-2eww2 00:03:05.815\",\"1199166\",\"151925412000204916\""));
 
@@ -76,7 +76,7 @@ class ADUtilsTest {
     }
 
     @Test
-    public void testLogTimeInRange() throws ParseException {
+    void testLogTimeInRange() throws ParseException {
         Date timeBefore = ADConstants.df.parse("2018-02-22 00:00:00.127");
         Date timeIn = ADConstants.df.parse("2018-02-22 00:05:00.127");
         Date timeAfter = ADConstants.df.parse("2018-02-22 00:10:00.127");
@@ -84,7 +84,6 @@ class ADUtilsTest {
         Date startPoint = ADConstants.df.parse("2018-02-22 00:01:02.127");
         Date endPoint = ADConstants.df.parse("2018-02-22 00:09:02.127");
 
-        long range = 3000;
         assertFalse(ADUtils.logTimeInRange(timeBefore,startPoint,endPoint));
         assertTrue(ADUtils.logTimeInRange(timeIn, startPoint,endPoint));
         assertFalse(ADUtils.logTimeInRange(timeAfter, startPoint,endPoint));

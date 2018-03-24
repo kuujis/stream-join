@@ -12,6 +12,7 @@ import java.util.stream.Collector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class ADStatisticsCollectorTest {
 
@@ -83,7 +84,7 @@ class ADStatisticsCollectorTest {
     }
 
     @Test
-    public void testToString(){
+    void testToString(){
         ADStatistic stat = new ADStatistic();
         stat.setCampaignId(1);
         stat.setViews(2);
@@ -97,9 +98,17 @@ class ADStatisticsCollectorTest {
     }
 
     @Test
-    public void testCharacteristics(){
+    void testCharacteristics(){
         assertEquals(Set.of(Collector.Characteristics.IDENTITY_FINISH, Collector.Characteristics.UNORDERED),
                 ADStatisticsCollector.statisticsCollector(false).characteristics());
+    }
+
+    @Test
+    void testFinisher(){
+        ADStatisticsCollector asc = ADStatisticsCollector.statisticsCollector(false);
+        ADStatistic statistic = asc.supplier().get();
+
+        assertSame(statistic, asc.finisher().apply(statistic));
     }
 
     private void updateStatistic(ADStatistic stat, int campaignId, int views, int clicks, int viewableViews) {

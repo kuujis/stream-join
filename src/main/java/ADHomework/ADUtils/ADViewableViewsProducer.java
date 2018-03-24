@@ -12,6 +12,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,22 +20,17 @@ import java.util.stream.Stream;
 
 public class ADViewableViewsProducer {
 
-    private Integer timeWindow = 300000;//in miliseconds, 5 mins, max difference noticed - ~160000, ~2:40
-    private Integer bufferSize = 3; //defines how much ADViewableViews should be put into cache in advance
     private String outputFile;
     private String vvfile;
     private BufferedReader views;
-    private StatefulBeanToCsv beanToCsv;
-    private Supplier<Stream<String>> viewableViews;
-    private ADAmateurishCache<ADViewableView> amCache;
+    private StatefulBeanToCsv<ADView> beanToCsv;
+    private final ADAmateurishCache<ADViewableView> amCache;
 
     public ADViewableViewsProducer(String[] args, int timeWindow, int bufferSize ) throws IOException {
-        this.amCache = new ADAmateurishCache<ADViewableView>(timeWindow, bufferSize);
+        this.amCache = new ADAmateurishCache<>(timeWindow, bufferSize);
         this.views = Files.newBufferedReader(Paths.get(args[0]));
         this.vvfile = args[2];
         this.outputFile = args.length >= 5 ? args[4] : "FilteredViews.csv";
-        this.timeWindow = timeWindow;
-        this.bufferSize = bufferSize;
     }
 
     public void generateViewableViews() throws IOException {
@@ -46,14 +42,14 @@ public class ADViewableViewsProducer {
         strategy.setColumnMapping(columnMapping);
         strategy.setHeader(columnMapping);
 
-        this.beanToCsv = new StatefulBeanToCsvBuilder(writer)
+        this.beanToCsv = new StatefulBeanToCsvBuilder<ADView>(writer)
                 .withMappingStrategy(strategy)
                 .build();
 
         views.lines()
                 .map(ADUtils.lineToADView)
-                .filter(adView -> adView != null)
-                .filter(adView -> isMatchingVVAvailable(adView))
+                .filter(Objects::nonNull)
+                .filter(this::isMatchingVVAvailable)
                 .forEachOrdered(o -> ADUtils.writeToCsv(o, this.beanToCsv));
 
         System.out.printf("Views with clicks written to %s \n", outputFile);
@@ -65,7 +61,6 @@ public class ADViewableViewsProducer {
         boolean cacheOK = this.amCache.isCacheOK(adView);
         //System.out.printf("Cache is OK?: %s for %s \n", cacheOK, adView);
         //if vvCache is NOT OK re-fill from file
-        List<ADViewableView> matchingVVs;
         if (!cacheOK) {
             amCache.refreshCache(adView, this.vvfile, ADUtils.lineToADViewableView);
         }

@@ -12,10 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ADViewableViewsProducerTest {
 
     @Test
-    void generateViewableViews() {
-    }
-
-    @Test
     void getMatchingVVs() throws IOException {
         String[] args = new String[]{"/ViewsS.csv",
                 "/ClicksS.csv",
@@ -32,11 +28,11 @@ class ADViewableViewsProducerTest {
     }
 
     @Test
-    public void cacheForFirstadViewShouldContain3entries() throws IOException, ParseException {
+    void cacheForFirstadViewShouldContain3entries() throws IOException, ParseException {
 //        adView
 //        4564671159070995313,2018-02-22 00:03:05.815,1199166
 
-//        VV's
+//        ViewableViewsST2
 //        151925403000315809,2018-02-22 00:05:07.216,4564671159070995313
 //        151925403000630610,2018-02-22 00:08:13.869,3565493259205775418
 //        151925412000204915,2018-02-22 00:14:34.500,7443884296972096163

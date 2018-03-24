@@ -11,16 +11,16 @@ public abstract class ADIdLogTimedCmpgn {
 
     @CsvBindByName(column = "id")
     @CsvBindByPosition(position = 0)
-    protected long id;
+    long id;
 
     @CsvBindByName(column = "logTime")
     @CsvBindByPosition(position = 1)
     @CsvDate(ADConstants.DATE_FORMAT)
-    protected Date logTime;
+    Date logTime;
 
     @CsvBindByName(column = "campaignId")
     @CsvBindByPosition(position = 2)
-    protected int campaignId;
+    int campaignId;
 
     public Date getLogTime() {
         return logTime;
@@ -28,7 +28,7 @@ public abstract class ADIdLogTimedCmpgn {
     
     public long getId(){
         return id;
-    };
+    }
 
     public int getCampaignId(){
         return campaignId;

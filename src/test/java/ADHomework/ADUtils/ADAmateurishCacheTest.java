@@ -15,7 +15,7 @@ class ADAmateurishCacheTest {
 
     @Test
     void testNewStreamReturnedBySupplier() {
-        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>(300000, 3);
+        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<>(300000, 3);
 
         assertNotSame(cache.getCache().stream(), cache.cache().get());
     }
@@ -60,9 +60,9 @@ class ADAmateurishCacheTest {
     }
 
     @Test
-    public void isTooOldTest() throws ParseException {
+    void isTooOldTest() throws ParseException {
 
-        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>( 300000, 3);
+        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<>(300000, 3);
 
         ADView adView = new ADView("4564671159070995313,2018-02-22 00:15:10.815,1199166");
         ADViewableView tooOldVV = new ADViewableView("151925403000315809,2018-02-22 00:00:09.216,4564671159070995313");
@@ -75,9 +75,9 @@ class ADAmateurishCacheTest {
     }
 
     @Test
-    public void isTooFarAheadTest() throws ParseException {
+    void isTooFarAheadTest() throws ParseException {
 
-        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>( 300000, 3);
+        ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<>(300000, 3);
 
         ADView adView = new ADView("4564671159070995313,2018-02-22 00:00:00.815,1199166");
         ADViewableView inTimeWindow = new ADViewableView("151925403000315809,2018-02-22 00:00:09.216,4564671159070995313");

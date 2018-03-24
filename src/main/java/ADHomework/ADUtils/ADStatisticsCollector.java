@@ -13,14 +13,14 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 
 public class ADStatisticsCollector implements Collector<ADIdLogTimedCmpgn, ADStatistic, ADStatistic> {
-    //    public interface Collector<T, A, R> {
+//        public interface Collector<T, A, R> {
 //        Supplier<A> supplier();
 //        BiConsumer<A, T> accumulator();
 //        Function<A, R> finisher();
 //        BinaryOperator<A> combiner();
 //        Set<Characteristics> characteristics();
 //    }
-    private boolean collectingViews = true;
+    private final boolean collectingViews;
 
     private ADStatisticsCollector(boolean b) {
         super();
@@ -29,9 +29,7 @@ public class ADStatisticsCollector implements Collector<ADIdLogTimedCmpgn, ADSta
 
     @Override
     public synchronized Supplier<ADStatistic> supplier() {
-        return () -> {
-            return new ADStatistic();
-        };
+        return ADStatistic::new;
     }
 
     @Override

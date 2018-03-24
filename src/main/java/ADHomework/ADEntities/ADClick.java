@@ -5,7 +5,7 @@ import ADHomework.ADUtils.ADConstants;
 import java.text.ParseException;
 
 /**
- * Could be an extension of ADVIewableView, but then need to manipulate constructor parameters,
+ * Could be an extension of ADViewableView, but then need to manipulate constructor parameters,
  * leads to more memory usage. Probably :)
  */
 public class ADClick extends ADIdLogTimedCmpgn {

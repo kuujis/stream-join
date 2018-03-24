@@ -3,24 +3,22 @@ package ADHomework.ADEntities;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
-import java.util.Map;
-
 public class ADStatistic {
     @CsvBindByName(column = "id")
     @CsvBindByPosition(position = 0)
-    int campaignId;
+    private int campaignId;
     @CsvBindByName(column = "views")
     @CsvBindByPosition(position = 1)
-    int views;
+    private int views;
     @CsvBindByName(column = "clicks")
     @CsvBindByPosition(position = 2)
-    int clicks;
+    private int clicks;
     @CsvBindByName(column = "viewableViews")
     @CsvBindByPosition(position = 2)
-    int viewableViews;
+    private int viewableViews;
     @CsvBindByName(column = "clickThrough")
     @CsvBindByPosition(position = 2)
-    double clickThrough;
+    private double clickThrough;
 
     public ADStatistic(){
         this.campaignId = 0;
@@ -72,7 +70,7 @@ public class ADStatistic {
         return clickThrough;
     }
 
-    public void setClickThrough(double clickThrough) {
+    private void setClickThrough(double clickThrough) {
         this.clickThrough = clickThrough;
     }
 

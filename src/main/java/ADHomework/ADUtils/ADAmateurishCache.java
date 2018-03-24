@@ -10,27 +10,25 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ADAmateurishCache<T extends ADIdLogTimedCmpgn> {
-    private List<T> cache;
-    private int timeWindow;
-    private int bufferSize;
+    private final List<T> cache;
+    private final int timeWindow;
+    private final int bufferSize;
 
-    public ADAmateurishCache(int timeWindow, int bufferSize) {
+    ADAmateurishCache(int timeWindow, int bufferSize) {
         this.cache = Collections.synchronizedList(new ArrayList<T>());
         this.timeWindow = timeWindow;
         this.bufferSize = bufferSize;
     }
 
     synchronized public Supplier<Stream<T>> cache() {
-        return () -> {
-            //must supply new object
-            return new ArrayList<T>(this.cache).stream();
-        };
+        return () -> new ArrayList<>(this.cache).stream();
     }
 
     synchronized public List<T> getCache() {
@@ -45,12 +43,12 @@ public class ADAmateurishCache<T extends ADIdLogTimedCmpgn> {
                 .map(vv -> vv.getLogTime().getTime())
                 .reduce(Long::max)
                 .orElse(Long.MAX_VALUE);
-        //System.out.printf("**adView time: %s  +5min,maxtime: %s \n", adView.getLogTime(), ADConstants.df.format(new Date(maxTime)));
+        //System.out.printf("**adView time: %s  +timeWindow, maxtime: %s \n", adView.getLogTime(), ADConstants.df.format(new Date(maxTime)));
         return adView.getLogTime().getTime() + this.timeWindow < maxTime & this.getCache().size() > 0;
 
     }
 
-    synchronized public void reload(List<T> refreshedCache) {
+    private synchronized void reload(List<T> refreshedCache) {
         this.cache.clear();
         this.cache.addAll(refreshedCache);
     }
@@ -64,13 +62,12 @@ public class ADAmateurishCache<T extends ADIdLogTimedCmpgn> {
     }
 
     synchronized public void refreshCache(ADView adView, String source, Function<String, T> parsingFunction) {
-        BufferedReader clicks = null;
         try {
-            clicks = Files.newBufferedReader(Paths.get(source));
+            BufferedReader clicks = Files.newBufferedReader(Paths.get(source));
             System.out.printf("Refreshing cache adView.id %s; Parser %s. \n", adView.getId(), parsingFunction.toString());
             List<T> refreshedCache = clicks.lines()
                     .map(parsingFunction)
-                    .filter(adClick -> adClick != null)
+                    .filter(Objects::nonNull)
                     .dropWhile(adClick -> this.isTooOld(adView, adClick))
                     //.peek(adVV -> System.out.printf("###past drop adVV %s \n", adVV.toString()))
                     .takeWhile(adClick -> !this.isTooFarAhead(adView, adClick))

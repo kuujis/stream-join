@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ADViewableViewTest {
 
-    private String badIdLine = "bad id,2018-02-22 00:00:03.863,2975826529651648264";
-    private String badDateLine = "151925403000149618,bad date,2975826529651648264";
-    private String properLine = "151925403000149618,2018-02-22 00:00:03.863,2975826529651648264";
+    private final String badIdLine = "bad id,2018-02-22 00:00:03.863,2975826529651648264";
+    private final String badDateLine = "151925403000149618,bad date,2975826529651648264";
+    private final String properLine = "151925403000149618,2018-02-22 00:00:03.863,2975826529651648264";
 
     @Test
-    public void testExceptionsForBadlines() {
+    void testExceptionsForBadlines() {
         assertThrows(NumberFormatException.class,
                 () -> {
                     ADViewableView adViewableView = new ADViewableView(badIdLine);
@@ -28,15 +28,15 @@ class ADViewableViewTest {
     }
 
     @Test
-    public void testProperLineIsParsed() throws ParseException {
+    void testProperLineIsParsed() throws ParseException {
         ADViewableView adViewableView = new ADViewableView(properLine);
-        assertEquals(151925403000149618l, adViewableView.getId());
+        assertEquals(151925403000149618L, adViewableView.getId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:00:03.863"), adViewableView.getLogTime());
-        assertEquals(2975826529651648264l, adViewableView.getInteractionId());
+        assertEquals(2975826529651648264L, adViewableView.getInteractionId());
     }
 
     @Test
-    public void setProperLine() throws ParseException {
+    void setProperLine() throws ParseException {
         ADViewableView vv = new ADViewableView(properLine);
         assertEquals("Id: 151925403000149618 logTime: 2018-02-22 00:00:03.863 campaignId: 0 intId: 2975826529651648264",
                 vv.toString());
