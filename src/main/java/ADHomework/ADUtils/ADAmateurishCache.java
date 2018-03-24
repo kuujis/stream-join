@@ -64,7 +64,7 @@ public class ADAmateurishCache<T extends ADIdLogTimedCmpgn> {
     synchronized public void refreshCache(ADView adView, String source, Function<String, T> parsingFunction) {
         try {
             BufferedReader clicks = Files.newBufferedReader(Paths.get(source));
-            System.out.printf("Refreshing cache adView.id %s; Parser %s. \n", adView.getId(), parsingFunction.toString());
+            //System.out.printf("Refreshing cache adView.id %s; Parser %s. \n", adView.getId(), parsingFunction.toString());
             List<T> refreshedCache = clicks.lines()
                     .map(parsingFunction)
                     .filter(Objects::nonNull)

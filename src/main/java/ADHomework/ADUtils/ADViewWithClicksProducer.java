@@ -51,7 +51,6 @@ public class ADViewWithClicksProducer {
 
         views.map(ADUtils.lineToADView)
                 .filter(Objects::nonNull)
-                //TODO: need to filter all garbage then act on good adViews only
                 .flatMap(this::includeClicks)
                 .filter(Objects::nonNull)
                 .forEachOrdered(adViewWithClick ->  ADUtils.writeToCsv(adViewWithClick, beanToCsv));

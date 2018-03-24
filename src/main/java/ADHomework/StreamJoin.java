@@ -20,7 +20,8 @@ class StreamJoin {
      *             ViewsWithClicks.csv - output - views joined with clicks
      *             FilteredViews.csv - output - views filtered if they were viewable
      *             statistics.csv - output - statistics
-     * @throws IOException - if something gets messed up with files
+     *             timeWindow - input - time in milliseconds to check for matching Clicks and ViewableViews
+     *             bufferSize - input - multiplier for determining how many timeWindows to include in ADAmateurishCache
      */
     public static void main(String[] args) {
 

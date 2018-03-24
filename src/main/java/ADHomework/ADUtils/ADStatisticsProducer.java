@@ -36,17 +36,17 @@ public class ADStatisticsProducer {
         try {
             calculateViewsStatistics();
 
-            System.out.println("Views summary: \n" + stats);
+            //System.out.println("Views summary: \n" + stats);
 
             includeClickInformationToStats();
 
-            System.out.println("With clicks: \n" + stats);
+            //System.out.println("With clicks: \n" + stats);
 
             includeViewableViewInformation();
 
             stats.entrySet().stream().parallel().map(Map.Entry::getValue).forEach(ADStatistic::refreshClickthrough);
 
-            System.out.println("With viewable views: \n" + stats);
+           // System.out.println("With viewable views: \n" + stats);
 
             printStats();
 
