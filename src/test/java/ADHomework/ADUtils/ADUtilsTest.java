@@ -99,7 +99,9 @@ class ADUtilsTest {
                 "ViewableViews.csv",
                 "ViewsWithClicks.csv",
                 "FilteredViews.csv",
-                "statistics.csv"};
+                "statistics.csv",
+                String.valueOf(30000),
+                String.valueOf(3)};
 
         String[] updatedArgs = ADUtils.updateFiles(args);
 
@@ -118,7 +120,9 @@ class ADUtilsTest {
                 "ViewableViews.csv",
                 "ViewsWithClicks.csv",
                 "FilteredViews.csv",
-                "statistics.csv"};
+                "statistics.csv",
+                String.valueOf(30000),
+                String.valueOf(3)};
 
         String[] updatedArgs = ADUtils.updateFiles(partial);
 
@@ -136,7 +140,9 @@ class ADUtilsTest {
                 "ViewableViews.csv",
                 "ViewsWithClicks.csv",
                 "FilteredViews.csv",
-                "statistics.csv"};
+                "statistics.csv",
+                String.valueOf(30000),
+                String.valueOf(3)};
 
         String[] updatedArgs = ADUtils.updateFiles(partial);
 

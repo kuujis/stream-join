@@ -106,7 +106,9 @@ public class ADUtils {
                 "ViewableViews.csv",
                 "ViewsWithClicks.csv",
                 "FilteredViews.csv",
-                "statistics.csv"};
+                "statistics.csv",
+                "1200000", //default timeWindow
+                "3"}; //default buffer size
 
         if (args.length < 3) {
             args = defaults;
@@ -115,18 +117,24 @@ public class ADUtils {
 
         checkFilesExist(args);
 
-        if (args.length < 6) {
+        if (args.length < 8) {
 
             List<String> ar = new ArrayList<>(Arrays.asList(args));
-            switch (args.length){
-                case 3:{
+            switch (args.length) {
+                case 3: {
                     ar.add(defaults[3]);
                 }
-                case 4:{
+                case 4: {
                     ar.add(defaults[4]);
                 }
-                case 5:{
+                case 5: {
                     ar.add(defaults[5]);
+                }
+                case 6: {
+                    ar.add(defaults[6]);
+                }
+                case 7: {
+                    ar.add(defaults[7]);
                 }
             }
             args = ar.toArray(new String[0]);
@@ -139,13 +147,13 @@ public class ADUtils {
     static void checkFilesExist(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < 3; i++ ) {
+        for (int i = 0; i < 3; i++) {
             File views = new File(args[i]);
-            if(!views.exists()){
+            if (!views.exists()) {
                 sb.append("INPUT File " + args[i] + " could not be found.\n");
             }
         }
-        if (!sb.toString().isEmpty()){
+        if (!sb.toString().isEmpty()) {
             throw new IOException(sb.toString());
         }
     }

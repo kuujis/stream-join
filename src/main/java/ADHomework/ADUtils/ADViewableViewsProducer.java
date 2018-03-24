@@ -26,11 +26,11 @@ public class ADViewableViewsProducer {
     private StatefulBeanToCsv<ADView> beanToCsv;
     private final ADAmateurishCache<ADViewableView> amCache;
 
-    public ADViewableViewsProducer(String[] args, int timeWindow, int bufferSize ) throws IOException {
-        this.amCache = new ADAmateurishCache<>(timeWindow, bufferSize);
+    public ADViewableViewsProducer(String[] args) throws IOException {
         this.views = Files.newBufferedReader(Paths.get(args[0]));
         this.vvfile = args[2];
-        this.outputFile = args.length >= 5 ? args[4] : "FilteredViews.csv";
+        this.outputFile = args[4];
+        this.amCache = new ADAmateurishCache<>(Integer.parseInt(args[6]), Integer.parseInt(args[7]));
     }
 
     public void generateViewableViews() throws IOException {

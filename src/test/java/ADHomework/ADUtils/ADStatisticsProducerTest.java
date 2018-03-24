@@ -18,17 +18,21 @@ class ADStatisticsProducerTest {
 
     @BeforeAll
     void onSetup() throws IOException {
+        int timeWindow = 300000;
+        int bufferSize = 3;
         String[] args = new String[]{"/ViewsS.csv",
                 "/ClicksS.csv",
                 "/ViewableViewsS.csv",
                 "/ViewsWithClicksS.csv",
                 "/FilteredViewsS.csv",
-                "/statisticsS.csv"};
+                "/statisticsS.csv",
+                String.valueOf(timeWindow),
+                String.valueOf(bufferSize)};
 
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
         sp = new ADStatisticsProducer(args);
-        vwClicks = new ADViewWithClicksProducer(args, 300000, 3);
-        vvS = new ADViewableViewsProducer(args, 300000, 3);
+        vwClicks = new ADViewWithClicksProducer(args);
+        vvS = new ADViewableViewsProducer(args);
     }
 
     @Test

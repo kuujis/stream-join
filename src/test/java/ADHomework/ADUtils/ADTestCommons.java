@@ -10,7 +10,7 @@ import java.util.Date;
 
 class ADTestCommons {
     static String[] getTestFilesAbsolutePaths(Object testClass, String[] args) throws IOException {
-        if (args.length < 3){
+        if (args.length < 3) {
             throw new AssertionError("Serious lack of files from test method, don't be lazy.");
         }
 
@@ -29,7 +29,14 @@ class ADTestCommons {
         createAndLogResults(fviews, "filtered views: ");
         createAndLogResults(stats, "statistics: ");
 
-        args = new String[]{views.getAbsolutePath(), clicks.getAbsolutePath(), vviews.getAbsolutePath(), vwClicks.getAbsolutePath(), fviews.getAbsolutePath(), stats.getAbsolutePath()};
+        args = new String[]{views.getAbsolutePath(),
+                clicks.getAbsolutePath(),
+                vviews.getAbsolutePath(),
+                vwClicks.getAbsolutePath(),
+                fviews.getAbsolutePath(),
+                stats.getAbsolutePath(),
+                args[6],
+                args[7]};
         return args;
     }
 

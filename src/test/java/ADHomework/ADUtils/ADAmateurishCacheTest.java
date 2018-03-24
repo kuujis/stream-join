@@ -22,20 +22,22 @@ class ADAmateurishCacheTest {
 
     @Test
     void cacheIsOk() throws IOException, ParseException {
+        int timeWindow = 300000;
+        int bufferSize = 3;
+
         //only ViewableViewsST3 is important for this test
         String[] args = new String[]{"/ViewsS.csv",
                 "/ClicksS.csv",
                 "/ViewableViewsST3.csv",
                 "/ViewsWithClicksS.csv",
                 "/FilteredViewsST3.csv",
-                "/statisticsS.csv"};
+                "/statisticsS.csv",
+                String.valueOf(timeWindow),
+                String.valueOf(bufferSize)};
 
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
 
-        int timeWindow = 300000;
-        int bufferSize = 3;
-
-        ADViewableViewsProducer vvPrdcr = new ADViewableViewsProducer(args, timeWindow, bufferSize);
+        ADViewableViewsProducer vvPrdcr = new ADViewableViewsProducer(args);
 
         String firstADViewTime = "2018-02-22 00:03:01.000";
         String pointInTimeWindow = advanceTimeInStringBy(firstADViewTime, timeWindow / 2);

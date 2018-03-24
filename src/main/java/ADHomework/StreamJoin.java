@@ -28,11 +28,11 @@ class StreamJoin {
             args = ADUtils.updateFiles(args);
 
             //join Views with Clicks
-            ADViewWithClicksProducer clicks = new ADViewWithClicksProducer(args, 300000, 3);
+            ADViewWithClicksProducer clicks = new ADViewWithClicksProducer(args);
             clicks.generateViewsWithClicks();
 
             //Join Views with ViewableViews
-            ADViewableViewsProducer prod = new ADViewableViewsProducer(args, 300000, 3);
+            ADViewableViewsProducer prod = new ADViewableViewsProducer(args);
             prod.generateViewableViews();
 
             //Generate statistics

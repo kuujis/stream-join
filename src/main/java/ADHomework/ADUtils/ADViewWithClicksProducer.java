@@ -21,11 +21,11 @@ public class ADViewWithClicksProducer {
     private final String outputFile;
     private final ADAmateurishCache<ADClick> clCache;
 
-    public ADViewWithClicksProducer(String[] args, int timeWindow, int bufferSize) throws IOException {
+    public ADViewWithClicksProducer(String[] args) throws IOException {
         this.views = Files.newBufferedReader(Paths.get(args[0]));
         this.clicks = args[1];
-        this.outputFile = args.length >= 4 ? args[3] : "ViewsWithClicks.csv";
-        this.clCache = new ADAmateurishCache<>(timeWindow, bufferSize);
+        this.outputFile = args[3];
+        this.clCache = new ADAmateurishCache<>(Integer.parseInt(args[6]), Integer.parseInt(args[7]));
     }
 
     public void generateViewsWithClicks() throws IOException {
