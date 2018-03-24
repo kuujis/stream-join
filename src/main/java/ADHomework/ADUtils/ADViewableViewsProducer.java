@@ -55,6 +55,9 @@ public class ADViewableViewsProducer {
                 .filter(adView -> adView != null)
                 .filter(adView -> isMatchingVVAvailable(adView))
                 .forEachOrdered(o -> ADUtils.writeToCsv(o, this.beanToCsv));
+
+        System.out.printf("Views with clicks written to %s \n", outputFile);
+
         writer.close();
     }
 

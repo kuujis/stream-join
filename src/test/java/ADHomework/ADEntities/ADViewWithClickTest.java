@@ -1,7 +1,6 @@
 package ADHomework.ADEntities;
 
 import ADHomework.ADUtils.ADConstants;
-import ADHomework.ADUtils.ADUtils;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -21,7 +20,7 @@ class ADViewWithClickTest {
         ADViewWithClick adViewWithClick = new ADViewWithClick(id, logTime, clickId, campaignId);
 
         assertTrue(id == adViewWithClick.getId());
-        assertTrue(clickId  == adViewWithClick.getClickId());
+        assertTrue(clickId == adViewWithClick.getClickId());
         assertEquals(logTime, adViewWithClick.getLogTime());
         assertEquals(campaignId, adViewWithClick.getCampaignId());
     }
@@ -34,15 +33,15 @@ class ADViewWithClickTest {
     @Test
     public void testExceptionsThrownOnBadLines() throws ParseException {
 
-        assertThrows(ParseException.class,() -> {
+        assertThrows(ParseException.class, () -> {
             ADViewWithClick adView = new ADViewWithClick(line0);
         });
 
-        assertThrows(ParseException.class,() -> {
+        assertThrows(ParseException.class, () -> {
             ADViewWithClick adView = new ADViewWithClick(badDateLline);
         });
 
-        assertThrows(NumberFormatException.class,() -> {
+        assertThrows(NumberFormatException.class, () -> {
             ADViewWithClick adView = new ADViewWithClick(badIdLine);
         });
 
@@ -56,9 +55,16 @@ class ADViewWithClickTest {
         ADViewWithClick adViewWithClick = new ADViewWithClick(properLine);
 
         assertTrue(7443884296972096163l == adViewWithClick.getId());
-        assertTrue(151925412000204915l  == adViewWithClick.getClickId());
+        assertTrue(151925412000204915l == adViewWithClick.getClickId());
         assertEquals(ADConstants.df.parse("2018-02-22 00:01:26.639"), adViewWithClick.getLogTime());
         assertEquals(1232120, adViewWithClick.getCampaignId());
+    }
+
+    @Test
+    public void testToString() throws ParseException {
+        ADViewWithClick vwc = new ADViewWithClick("\"7443884296972096163\",\"2018-02-22 00:01:26.639\",\"1232120\",\"151925412000204915\"");
+        assertEquals("Id: 7443884296972096163 logTime: 2018-02-22 00:01:26.639 campaignId: 1232120 clickId: 151925412000204915",
+                vwc.toString());
     }
 
 }

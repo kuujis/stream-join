@@ -34,4 +34,11 @@ class ADViewableViewTest {
         assertEquals(ADConstants.df.parse("2018-02-22 00:00:03.863"), adViewableView.getLogTime());
         assertEquals(2975826529651648264l, adViewableView.getInteractionId());
     }
+
+    @Test
+    public void setProperLine() throws ParseException {
+        ADViewableView vv = new ADViewableView(properLine);
+        assertEquals("Id: 151925403000149618 logTime: 2018-02-22 00:00:03.863 campaignId: 0 intId: 2975826529651648264",
+                vv.toString());
+    }
 }

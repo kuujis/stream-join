@@ -25,6 +25,7 @@ public class ADMappingStrategy<T> extends ColumnPositionMappingStrategy<T> {
         return header;
     }
 
+    //Test coverage for this method shall be ignored, since its a bugfix..
     @Override
     protected void loadFieldMap() throws CsvBadConverterException {
         boolean required;

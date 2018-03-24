@@ -26,7 +26,7 @@ public class ADViewWithClicksProducer {
         this.bufferSize = bufferSize;
         this.views = Files.newBufferedReader(Paths.get(args[0]));
         this.clicks = args[1];
-        this.outputFile = args.length <= 4 ? args[3] : "ViewsWithClicks.csv";
+        this.outputFile = args.length >= 4 ? args[3] : "ViewsWithClicks.csv";
         this.clCache = new ADAmateurishCache<>(timeWindow, bufferSize);
     }
 
@@ -45,7 +45,7 @@ public class ADViewWithClicksProducer {
 
         //Create ViewsWithClicks file
         getADViewsWithClicks(views.lines(), beanToCsv);
-
+        System.out.printf("Views with clicks written to %s \n", outputFile);
         writer.close();
     }
 

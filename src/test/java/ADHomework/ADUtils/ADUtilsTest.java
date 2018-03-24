@@ -1,6 +1,9 @@
 package ADHomework.ADUtils;
 
+import ADHomework.ADEntities.ADClick;
 import ADHomework.ADEntities.ADView;
+import ADHomework.ADEntities.ADViewWithClick;
+import ADHomework.ADEntities.ADViewableView;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -11,11 +14,67 @@ import static org.junit.jupiter.api.Assertions.*;
 class ADUtilsTest {
 
     @Test
-    void testStreamsWithMaxIDs() throws ParseException {
+    void testLineToADView() throws ParseException, NumberFormatException {
+        ADView view = ADUtils.lineToADView.apply("4564671159070995313,2018-02-22 00:03:05.815,1199166");
 
-        //ADView adView = new ADView("\"5,76777668144944E+018\",2018-02-22 00:00:00.127,1221633");
+        assertEquals(4564671159070995313l,view.getId());
+        assertEquals(ADConstants.df.parse("2018-02-22 00:03:05.815"), view.getLogTime());
+        assertEquals(1199166, view.getCampaignId());
 
+        assertNull(ADUtils.lineToADView.apply("4564671159070995313,201z8-09992-22222 00:03:05.815,1199166"));
+
+        assertNull(ADUtils.lineToADView.apply("45646711590709953139999,2018-02-22222 00:03:05.815,1199166"));
+
+        assertEquals("lineToADView",ADUtils.lineToADView.toString());
     }
+
+    @Test
+    void testLineToADClick() throws ParseException, NumberFormatException {
+        ADClick click = ADUtils.lineToADClick.apply("151925412000204916,2018-02-22 00:14:35.388,1232120,4564671159070995313");
+
+        assertEquals(151925412000204916l,click.getId());
+        assertEquals(ADConstants.df.parse("2018-02-22 00:14:35.388"), click.getLogTime());
+        assertEquals(1232120, click.getCampaignId());
+
+        assertNull(ADUtils.lineToADClick.apply("151925412000204916,2ss018-02-22 00:14556:35.388,1232120,4564671159070995313"));
+
+        assertNull(ADUtils.lineToADClick.apply("15192541200020491699999,2018-02-22 00:14:35.388,1232120,4564671159070995313"));
+
+        assertEquals("lineToADClick",ADUtils.lineToADClick.toString());
+    }
+
+
+    @Test
+    void testLineToADViewableView() throws ParseException, NumberFormatException {
+        ADViewableView view = ADUtils.lineToADViewableView.apply("151925403000315809,2018-02-22 00:05:07.216,4564671159070995313");
+
+        assertEquals(151925403000315809l,view.getId());
+        assertEquals(ADConstants.df.parse("2018-02-22 00:05:07.216"), view.getLogTime());
+        assertEquals(4564671159070995313l, view.getInteractionId());
+
+        assertNull(ADUtils.lineToADViewableView.apply("151925403000315809,2018-02zx44-22 00:05:0744545.216,4564671159070995313"));
+
+        assertNull(ADUtils.lineToADViewableView.apply("15192540300031580999999999,2018-02-22 00:05:07.216,4564671159070995313"));
+
+        assertEquals("lineToADViewableView",ADUtils.lineToADViewableView.toString());
+    }
+
+    @Test
+    void testLineToADViewWithClick() throws ParseException, NumberFormatException {
+        ADViewWithClick view = ADUtils.lineToADViewWithClick.apply("\"4564671159070995313\",\"2018-02-22 00:03:05.815\",\"1199166\",\"151925412000204916\"");
+
+        assertEquals(4564671159070995313l,view.getId());
+        assertEquals(ADConstants.df.parse("2018-02-22 00:03:05.815"), view.getLogTime());
+        assertEquals(1199166, view.getCampaignId());
+        assertEquals(151925412000204916l, view.getClickId());
+
+        assertNull(ADUtils.lineToADViewWithClick.apply("\"4564671159070995313\",\"2018-02-2eww2 00:03:05.815\",\"1199166\",\"151925412000204916\""));
+
+        assertNull(ADUtils.lineToADViewWithClick.apply("\"4564671159070wooo995313\",\"2018-02-22 00:03:05.815\",\"1199166\",\"151925412000204916\""));
+
+        assertEquals("lineToADViewWithClick",ADUtils.lineToADViewWithClick.toString());
+    }
+
     @Test
     public void testLogTimeInRange() throws ParseException {
         Date timeBefore = ADConstants.df.parse("2018-02-22 00:00:00.127");
@@ -30,5 +89,20 @@ class ADUtilsTest {
         assertTrue(ADUtils.logTimeInRange(timeIn, startPoint,endPoint));
         assertFalse(ADUtils.logTimeInRange(timeAfter, startPoint,endPoint));
 
+    }
+
+    @Test
+    void updateFilesFullset() {
+
+        String[] args = new String[]{"Views.csv",
+                "Clicks.csv",
+                "ViewableViews.csv",
+                "ViewsWithClicks.csv",
+                "FilteredViews.csv",
+                "statistics.csv"};
+
+        String[] updatedArgs = ADUtils.updateFiles(args);
+
+        assertEquals(args, updatedArgs);
     }
 }

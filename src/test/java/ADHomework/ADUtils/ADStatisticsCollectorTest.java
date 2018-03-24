@@ -1,13 +1,17 @@
 package ADHomework.ADUtils;
 
-import ADHomework.ADEntities.*;
+import ADHomework.ADEntities.ADIdLogTimedCmpgn;
+import ADHomework.ADEntities.ADStatistic;
+import ADHomework.ADEntities.ADView;
+import ADHomework.ADEntities.ADViewWithClick;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
-import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collector;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 class ADStatisticsCollectorTest {
 
@@ -78,10 +82,31 @@ class ADStatisticsCollectorTest {
         assertEquals((double)stat1.getClicks() / (double)stat1.getViews() * 100d, stat1.getClickThrough() );
     }
 
+    @Test
+    public void testToString(){
+        ADStatistic stat = new ADStatistic();
+        stat.setCampaignId(1);
+        stat.setViews(2);
+        stat.setClicks(3);
+        stat.setViewableViews(4);
+        ADStatistic.refreshClickthrough(stat);
+
+        assertEquals("campaignId 1 , views  2 , clicks  3 , viewableViews  4 , clickThrough  150.0",
+                stat.toString());
+
+    }
+
+    @Test
+    public void testCharacteristics(){
+        assertEquals(Set.of(Collector.Characteristics.IDENTITY_FINISH, Collector.Characteristics.UNORDERED),
+                ADStatisticsCollector.statisticsCollector(false).characteristics());
+    }
+
     private void updateStatistic(ADStatistic stat, int campaignId, int views, int clicks, int viewableViews) {
         stat.setCampaignId(campaignId);
         stat.setViews(views);
         stat.setClicks(clicks);
         stat.setViewableViews(viewableViews);
     }
+
 }

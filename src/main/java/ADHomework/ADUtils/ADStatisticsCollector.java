@@ -53,10 +53,7 @@ public class ADStatisticsCollector implements Collector<ADIdLogTimedCmpgn, ADSta
                 stat.setClicks(stat.getClicks() + 1);
             }
 
-            if (stat.getViews() > 0 & stat.getClicks() > 0) {
-                stat.setClickThrough(stat.getClicks() / stat.getViews());
-            }
-
+            ADStatistic.refreshClickthrough(stat);
         };
     }
 
@@ -68,9 +65,7 @@ public class ADStatisticsCollector implements Collector<ADIdLogTimedCmpgn, ADSta
 
             stat1.setClicks(stat1.getClicks() + stat2.getClicks());
 
-            if (stat1.getViews() > 0 & stat1.getClicks() > 0) {
-                ADStatistic.refreshClickthrough(stat1);
-            }
+            ADStatistic.refreshClickthrough(stat1);
 
             return stat1;
         };

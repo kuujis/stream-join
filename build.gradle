@@ -30,16 +30,10 @@ apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'org.junit.platform.gradle.plugin'
 
-jar {
-    baseName = 'junit5-gradle-consumer'
-    version = '1.0.0-SNAPSHOT'
-}
-
 run {
     args += 'D:\\Projects\\stream-join\\Views.csv D:\\Projects\\stream-join\\Clicks.csv D:\\Projects\\stream-join\\ViewableViews.csv'
 }
 
-// enable Java 9
 sourceCompatibility = "1.9"
 targetCompatibility = "1.9"
 
@@ -53,12 +47,31 @@ sourceSets.test {
     resources.srcDirs = ["src/test/resources"]
 }
 
-//test {
-//    useJUnitPlatform {
-//        excludeTags 'slow'
-//        includeEngines 'junit-jupiter'
-//    }
-//}
+int javaVersion = Integer.valueOf((String) JavaVersion.current().getMajorVersion())
+if (javaVersion < 10) apply plugin: 'jacoco'
+
+jar {
+    baseName = 'junit5-gradle-consumer'
+    version = '1.0.0-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform {
+        // includeEngines 'junit-jupiter', 'junit-vintage'
+        // excludeEngines 'custom-engine'
+
+        // includeTags 'fast'
+        excludeTags 'slow'
+    }
+
+    testLogging {
+        events 'started', 'passed', 'skipped', 'failed'
+    }
+
+    reports {
+        html.enabled = true
+    }
+}
 
 dependencies {
     //test.useJUnitPlatform()
@@ -74,4 +87,9 @@ dependencies {
 
     compile group: 'com.opencsv', name: 'opencsv', version: '4.1';
     compile 'commons-io:commons-io:2.6';
+}
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.6'
 }

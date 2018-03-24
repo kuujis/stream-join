@@ -36,10 +36,6 @@ public class ADStatistic {
                 " , clickThrough  " + this.clickThrough;
     }
 
-    public ADStatistic(int campaignId){
-        this.campaignId = campaignId;
-    }
-
     public Integer getCampaignId() {
         return campaignId;
     }

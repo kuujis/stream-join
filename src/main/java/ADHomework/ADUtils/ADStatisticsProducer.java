@@ -25,7 +25,7 @@ public class ADStatisticsProducer {
     private final String viewsWithClicks;
     private final String filteredViews;
     private final String statistics;
-    Map<Integer, ADStatistic> stats;
+    public Map<Integer, ADStatistic> stats;
 
     public ADStatisticsProducer(String[] args) {
         this.views = args[0];

@@ -1,16 +1,12 @@
 package ADHomework.ADUtils;
 
 import ADHomework.ADEntities.ADView;
-import ADHomework.ADEntities.ADViewableView;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ADViewableViewsProducerTest {
@@ -21,7 +17,12 @@ class ADViewableViewsProducerTest {
 
     @Test
     void getMatchingVVs() throws IOException {
-        String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsS.csv", "/FilteredViews.csv"};
+        String[] args = new String[]{"/ViewsS.csv",
+                "/ClicksS.csv",
+                "/ViewableViewsS.csv",
+                "/ViewsWithClicksS.csv",
+                "/FilteredViewsS.csv",
+                "/statisticsS.csv"};
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
 
         ADViewableViewsProducer vvPrdcr = new ADViewableViewsProducer(args, 300000, 3);
@@ -41,8 +42,13 @@ class ADViewableViewsProducerTest {
 //        151925412000204915,2018-02-22 00:14:34.500,7443884296972096163
 //  NOT ->151927758000493436,2018-02-22 00:18:41.298,498587225004261687
 
-        //only ViewableViewsST2 is important for this test
-        String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsST2.csv", "/FilteredViewsT2.csv"};
+        //only ViewableViewsST2 and FilteredViewsST2 (output) is important for this test
+         String[] args = new String[]{"/ViewsS.csv",
+                "/ClicksS.csv",
+                "/ViewableViewsST2.csv",
+                "/ViewsWithClicksS.csv",
+                "/FilteredViewsST2.csv",
+                "/statisticsS.csv"};
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
         ADViewableViewsProducer vvPrdcr = new ADViewableViewsProducer(args, 300000, 3);
 

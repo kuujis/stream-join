@@ -23,7 +23,12 @@ class ADAmateurishCacheTest {
     @Test
     void cacheIsOk() throws IOException, ParseException {
         //only ViewableViewsST3 is important for this test
-        String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsST3.csv", "ViewsWithClicksS.csv", "/FilteredViewsT3.csv"};
+        String[] args = new String[]{"/ViewsS.csv",
+                "/ClicksS.csv",
+                "/ViewableViewsST3.csv",
+                "/ViewsWithClicksS.csv",
+                "/FilteredViewsST3.csv",
+                "/statisticsS.csv"};
 
         args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
 
@@ -32,7 +37,7 @@ class ADAmateurishCacheTest {
 
         ADViewableViewsProducer vvPrdcr = new ADViewableViewsProducer(args, timeWindow, bufferSize);
 
-        String firstADViewTime = "2018-02-22 00:03:00.000";
+        String firstADViewTime = "2018-02-22 00:03:01.000";
         String pointInTimeWindow = advanceTimeInStringBy(firstADViewTime, timeWindow / 2);
         String pointInTimeWinXBuffer = advanceTimeInStringBy(firstADViewTime, timeWindow * bufferSize / 2);
         String pointAfterTimeWinXBuffer = advanceTimeInStringBy(firstADViewTime, timeWindow * (bufferSize + 1));
@@ -55,9 +60,7 @@ class ADAmateurishCacheTest {
     }
 
     @Test
-    public void isTooOldTest() throws IOException, ParseException {
-        String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsS.csv", "/FilteredViews.csv"};
-        args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
+    public void isTooOldTest() throws ParseException {
 
         ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>( 300000, 3);
 
@@ -72,9 +75,7 @@ class ADAmateurishCacheTest {
     }
 
     @Test
-    public void isTooFarAheadTest() throws IOException, ParseException {
-        String[] args = new String[]{"/ViewsS.csv", "/ClicksS.csv", "/ViewableViewsS.csv", "/FilteredViews.csv"};
-        args = ADTestCommons.getTestFilesAbsolutePaths(this, args);
+    public void isTooFarAheadTest() throws ParseException {
 
         ADAmateurishCache<ADIdLogTimedCmpgn> cache = new ADAmateurishCache<ADIdLogTimedCmpgn>( 300000, 3);
 
